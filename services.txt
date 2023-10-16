@@ -1,0 +1,7 @@
+1 - nativeWind    DONE
+2 - svg fontAwsome    DONE
+3 - image picker    DONE
+4 - reanimated    DONE
+5 - drop down    DONE
+6 - date picker    
+7 - dragable flatlist

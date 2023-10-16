@@ -1,20 +1,56 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StateProvider } from './AppState';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fab } from '@fortawesome/free-brands-svg-icons'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+import Layout from './_Layout';
+import React, { useState , useCallback} from 'react';
+import {
+  StatusBar,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import { useFonts } from 'expo-font';
 
-export default function App() {
+
+
+
+
+function App() {
+  library.add(fab)
+  library.add(fas)
+  const [fontsLoaded, fontError] = useFonts({
+    'amaranth': require('./assets/fonts/amaranth.ttf'),
+    'montserrat': require('./assets/fonts/montserrat.ttf'),
+    'palatino-linotype': require('./assets/fonts/palatino-linotype.ttf'),
+    'museo-moderno': require('./assets/fonts/museo-moderno.ttf'),
+  });
+
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded || fontError) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded, fontError]);
+
+  if (!fontsLoaded && !fontError) {
+    return null;
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+
+    <StateProvider>
+      <StatusBar/>
+      <View className="w-screen h-full flex justify-center items-center">
+        {/* <NavigationContainer> */}
+        <Layout />
+        {/* <View>
+        <Text className="">asdadsf</Text>
+      </View> */}
+        {/* </NavigationContainer> */}
+      </View>
+
+    </StateProvider>
+
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
