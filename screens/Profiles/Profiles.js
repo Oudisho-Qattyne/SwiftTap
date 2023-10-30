@@ -10,19 +10,19 @@ import HeaderTop from '../../UI/HeaderTop'
 
 const Profiles = () => {
     const { AppState, CreateAccountDispatch, UiEventsDispatch , dispatch } = useContext(AppContext)
-    // const [types, setTypes] = useState(AppState.profiles.types)
-    const [types, setTypes] = useState(
-        [
-            {
-                "id": 1,
-                "name": "Personal"
-            }
-        ]
-    )
-    // const [chosenTypeId, setChosesnTypeId] = useState(AppState.profiles.types[0].id)
-    const [chosenTypeId, setChosesnTypeId] = useState(1)
+    const [types, setTypes] = useState(AppState.profiles.types)
+    // const [types, setTypes] = useState(
+    //     [
+    //         {
+    //             "id": 1,
+    //             "name": "Personal"
+    //         }
+    //     ]
+    // )
+    const [chosenTypeId, setChosesnTypeId] = useState(AppState.profiles.types[0].id)
+    // const [chosenTypeId, setChosesnTypeId] = useState(1)
     const [profiles, setProfiles] = useState([])
-    const [profile, setProfile] = useState(1)
+    const [profile, setProfile] = useState(null)
     const fetchProfiles = async () => {
         const { res, err } = await API({
             type: 'profiles',
@@ -53,7 +53,7 @@ const Profiles = () => {
         console.log(err);
     }
     useEffect(() => {
-        // fetchProfiles()
+        fetchProfiles()
     }, [chosenTypeId])
 
     return (

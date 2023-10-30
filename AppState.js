@@ -1011,7 +1011,7 @@ export const StateProvider = ({ children }) => {
         {
             loading: false,
             error: false,
-            logedIn: true,
+            logedIn: false,
         }
     )
 
