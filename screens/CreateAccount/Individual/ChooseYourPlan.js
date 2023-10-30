@@ -81,7 +81,7 @@ const ChooseYourPlan = () => {
 
                 </View>
             </View>
-            <TouchableOpacity onPress={() => dispatch({ type: 'setLogedIn' , logedIn:true })}>
+            <TouchableOpacity onPress={() => {}}>
                 <Text className='text-[#707070] text-[17px] underline'>Continue Without Subsicribtion</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => CreateAccountDispatch({ type: 'nextPage' })} className=" absolute bottom-40 w-[296px]  h-[48px] rounded-full bg-[#1776F2] justify-center items-center">

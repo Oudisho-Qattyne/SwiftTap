@@ -7,15 +7,15 @@ const UserImage = () => {
     const { AppState, dispatch , UiState } = useContext(AppContext)
     const borderStyle = {
         borderWidth: 7,
-        borderColor: AppState.theme.profielBorderColor
+        borderColor: AppState.profile.theme.profielBorderColor
     }
     return (
-        <View className="w-full flex justify-center items-center">
-            <View style={borderStyle} className='min-w-[180px] min-h-[180px] rounded-full flex justify-center items-center'>
-                <Image className="max-w-[180px] max-h-[180px]" source={require('./../../assets/Images/Profile.png')} />
+        <View className="w-full flex justify-center items-center pt-10">
+            <View style={borderStyle} className='min-w-[180px] min-h-[180px] rounded-full flex justify-center items-center overflow-hidden'>
+                <Image className="w-[180px] h-[180px]" source={{uri:AppState.profile.profileImage}} />
                 {
                    UiState.pages.editable && <TouchableOpacity className="absolute flex justify-center items-center">
-                    <View style={{ backgroundColor: AppState.theme.profielBorderColor }} className="absolute min-w-[180px] min-h-[180px] rounded-full opacity-25 flex justify-center items-center">
+                    <View style={{ backgroundColor: AppState.profile.theme.profielBorderColor }} className="absolute min-w-[180px] min-h-[180px] rounded-full opacity-25 flex justify-center items-center">
                     </View>
                     <View className="absolute">
                         <FontAwesomeIcon color='white' icon={['fas', 'pen']} />

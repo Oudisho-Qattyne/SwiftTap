@@ -50,16 +50,23 @@ const Contacts = () => {
                         }
                         else if (newState[inputType].value.length < 8) {
                             newState[inputType].valid = false
-                            newState[inputType].error = 'the phone field must be at least 8 characters'
+                            newState[inputType].error = 'the phone field must be at least 8 numbers'
                             valid = false
                         }
                         else {
                             newState[inputType].valid = true
                         }
+                        break;
                     case 'whatsApp':
+                        const whatsApp = /^\d+$/
                         if (newState[inputType].value == '') {
                             newState[inputType].valid = false
                             newState[inputType].error = 'required'
+                            valid = false
+                        }
+                        else if (!whatsApp.test(newState[inputType].value)) {
+                            newState[inputType].valid = false
+                            newState[inputType].error = 'this is not a valid phone number'
                             valid = false
                         }
                         else {
@@ -67,9 +74,15 @@ const Contacts = () => {
                         }
                         break;
                         case 'telegram':
+                        const telegram = /^\d+$/
                         if (newState[inputType].value == '') {
                             newState[inputType].valid = false
                             newState[inputType].error = 'required'
+                            valid = false
+                        }
+                        else if (!telegram.test(newState[inputType].value)) {
+                            newState[inputType].valid = false
+                            newState[inputType].error = 'this is not a valid phone number'
                             valid = false
                         }
                         else {
@@ -149,12 +162,14 @@ const Contacts = () => {
                     error={personInfo.phone.error}
                     value={personInfo.phone.value}
                     placeholder='phone'
+                    keyboardType='phone-pad'
                     password={false}
                     onChangeText={(text) => onChangeInformationText(text, 'phone')} />
 
                 <Input
                     valid={personInfo.whatsApp.valid}
                     error={personInfo.whatsApp.error}
+                    keyboardType='phone-pad'
                     value={personInfo.whatsApp.value}
                     placeholder='whatsApp'
                     password={false}
@@ -164,6 +179,7 @@ const Contacts = () => {
                 <Input
                     valid={personInfo.telegram.valid}
                     error={personInfo.telegram.error}
+                    keyboardType='phone-pad'
                     value={personInfo.telegram.value}
                     placeholder='telegram'
                     password={false}

@@ -1,0 +1,304 @@
+    const setData = (state, action) => {
+        switch (action.section) {
+            case "socialsAndLinks":
+
+                return (
+                    {
+                        ...state,
+                        socialsAndLinks: action.data
+                    }
+                )
+                break;
+
+            case "flashContacts":
+                return (
+                    {
+                        ...state,
+                        flashContacts: action.data
+                    }
+                )
+            case "documents":
+                return (
+                    {
+                        ...state,
+                        documents: action.data
+                    }
+                )
+            case "mainInfo":
+                return (
+                    {
+                        ...state,
+                        mainInfo: action.data
+                    }
+                )
+            case "contactCard":
+                return (
+                    {
+                        ...state,
+                        contactCard: action.data
+                    }
+                )
+            default:
+                break;
+        }
+    }
+    const changeValue = (state, action) => {
+        switch (action.section) {
+            case "socialsAndLinks":
+                const newSocialsAndLinks = [...state.socialsAndLinks]
+                for (let i = 0; i < newSocialsAndLinks.length; i++) {
+                    if (newSocialsAndLinks[i].id == action.id) {
+                        newSocialsAndLinks[i] = {
+                            ...newSocialsAndLinks[i],
+                            value: action.value
+                        }
+                    }
+                }
+                return ({
+                    ...state,
+                    socialsAndLinks: newSocialsAndLinks
+                })
+
+            case "flashContacts":
+                const newFlashContacts = [...state.flashContacts]
+                for (let i = 0; i < newFlashContacts.length; i++) {
+                    if (newFlashContacts[i].id == action.id) {
+                        newFlashContacts[i] = {
+                            ...newFlashContacts[i],
+                            value: action.value
+                        }
+                    }
+                }
+                return ({
+                    ...state,
+                    flashContacts: newFlashContacts
+                })
+            case "documents":
+                const newDocuments = [...state.documents]
+                for (let i = 0; i < newDocuments.length; i++) {
+                    if (newDocuments[i].id == action.id) {
+                        newDocuments[i] = {
+                            ...newDocuments[i],
+                            value: action.value
+                        }
+                    }
+                }
+                return ({
+                    ...state,
+                    documents: newDocuments
+                })
+            case "mainInfo":
+                const newMainInfo = [...state.mainInfo]
+                for (let i = 0; i < newMainInfo.length; i++) {
+                    if (newMainInfo[i].id == action.id) {
+                        newMainInfo[i] = {
+                            ...newMainInfo[i],
+                            value: action.value
+                        }
+                    }
+                }
+                return ({
+                    ...state,
+                    mainInfo: newMainInfo
+                })
+            case "contactCard":
+                const contactCard = [...state.contactCard]
+                for (let i = 0; i < contactCard.length; i++) {
+                    if (contactCard[i].id == action.id) {
+                        contactCard[i] = {
+                            ...contactCard[i],
+                            value: action.value
+                        }
+                    }
+                }
+                return ({
+                    ...state,
+                    contactCard: contactCard
+                })
+            default:
+                break;
+        }
+    }
+    const deleteIcon = (state, action) => {
+        switch (action.section) {
+            case "socialsAndLinks":
+
+                const newSocialsAndLinks = state.socialsAndLinks.filter(SocialOrLink => SocialOrLink.id !== action.id)
+                return (
+                    {
+                        ...state,
+                        socialsAndLinks: newSocialsAndLinks
+                    }
+                )
+                break;
+
+            case "flashContacts":
+                const newFlashContacts = state.flashContacts.filter(flashContact => flashContact.id !== action.id)
+                return (
+                    {
+                        ...state,
+                        flashContacts: newFlashContacts
+                    }
+                )
+            case "documents":
+                const newDocuments = state.documents.filter(document => document.id !== action.id)
+                return (
+                    {
+                        ...state,
+                        documents: newDocuments
+                    }
+                )
+            case "mainInfo":
+                const newMainInfo = state.mainInfo.filter(mainInfo => mainInfo.id !== action.id)
+                return (
+                    {
+                        ...state,
+                        mainInfo: newMainInfo
+                    }
+                )
+            case "contactCard":
+                const newContactCard = state.contactCard.filter(contactCard => contactCard.id !== action.id)
+                return (
+                    {
+                        ...state,
+                        contactCard: newContactCard
+                    }
+                )
+            default:
+                break;
+        }
+    }
+    const toggleIsActive = (state, action) => {
+        switch (action.section) {
+            case "socialsAndLinks":
+                const newSocialsAndLinks = [...state.socialsAndLinks]
+                for (let i = 0; i < newSocialsAndLinks.length; i++) {
+                    if (newSocialsAndLinks[i].id == action.id) {
+                        newSocialsAndLinks[i] = {
+                            ...newSocialsAndLinks[i],
+                            isActive: action.isActive ? 1 : 0
+                        }
+                    }
+                }
+                return ({
+                    ...state,
+                    socialsAndLinks: newSocialsAndLinks
+                })
+                break;
+
+            case "flashContacts":
+                const newFlashContacts = [...state.flashContacts]
+                for (let i = 0; i < newFlashContacts.length; i++) {
+                    if (newFlashContacts[i].id == action.id) {
+                        newFlashContacts[i] = {
+                            ...newFlashContacts[i],
+                            isActive: action.isActive ? 1 : 0
+                        }
+                    }
+                }
+                return ({
+                    ...state,
+                    flashContacts: newFlashContacts
+                })
+            case "documents":
+                const newDocuments = [...state.documents]
+                for (let i = 0; i < newDocuments.length; i++) {
+                    if (newDocuments[i].id == action.id) {
+                        newDocuments[i] = {
+                            ...newDocuments[i],
+                            isActive: action.isActive ? 1 : 0
+                        }
+                    }
+                }
+                return ({
+                    ...state,
+                    documents: newDocuments
+                })
+            case "mainInfo":
+                const newMainInfo = [...state.mainInfo]
+                for (let i = 0; i < newMainInfo.length; i++) {
+                    if (newMainInfo[i].id == action.id) {
+                        newMainInfo[i] = {
+                            ...newMainInfo[i],
+                            isActive: action.isActive ? 1 : 0
+                        }
+                    }
+                }
+                return ({
+                    ...state,
+                    mainInfo: newMainInfo
+                })
+            case "contactCard":
+                const newContactCard = [...state.contactCard]
+                for (let i = 0; i < newContactCard.length; i++) {
+                    if (newContactCard[i].id == action.id) {
+                        newContactCard[i] = {
+                            ...newContactCard[i],
+                            isActive: action.isActive ? 1 : 0
+                        }
+                    }
+                }
+                return ({
+                    ...state,
+                    contactCard: newContactCard
+                })
+            default:
+                break;
+        }
+    }
+    const setLoading = (state, action) => {
+        return (
+            {
+                ...state,
+                themeLoading: action.loading
+            }
+        )
+    }
+    const setState = (state, action) => {
+        return ({
+            ...state,
+            ...action.allState
+        })
+    }
+    const setNavs = (state, action) => {
+        const newNavs = state.navs.map(nav => {
+            if (nav.id == action.id) {
+                return ({
+                    ...nav,
+                    isActive: !nav.isActive
+                })
+            }
+            else {
+                return ({
+                    ...nav,
+                    isActive: false
+                })
+            }
+        })
+        return (
+            {
+                ...state,
+                navs: newNavs,
+                editContactCard: false,
+                editDocuments: false,
+                editFlashContacts: false,
+                editMainInfo: false,
+                editSocialsAndLinks: false,
+                editable: false,
+            }
+        )
+    }
+    const closeAllNavs = (state) => {
+        const newNavs = state.navs.map(nav => (
+            {
+                ...nav,
+                isActive: false
+            }
+        ))
+        return (
+            {
+                ...state,
+                navs: newNavs
+            }
+        )
+    }

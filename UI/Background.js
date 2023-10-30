@@ -28,14 +28,14 @@ const Background = () => {
                 backgroundColor: BackGround.backGroundColor
             }
             return (
-                <View style={backGroundStyle} className='absolute w-screen h-full -z-20' />
+                <View  className='absolute w-full h-full -z-20 ' style={backGroundStyle} />
             )
         case 2:
             backGroundStyle = {
                 backgroundColor: BackGround.backGroundColor
             }
             return (
-                <View style={backGroundStyle} className='absolute w-screen h-full -z-10' />
+                <View  className='absolute w-screen h-full -z-10' style={backGroundStyle}/>
             )
         case 3:
             return (
@@ -59,8 +59,8 @@ const Background = () => {
             }
             return(
                 <View className="absolute w-screen h-full -z-10">
-                    <View style={themeBackGroundColor} className='absolute w-screen h-full -z-20' /> 
-                    <View style={backGroundStyle} className='relative top-[210px] rounded-tl-[70px] rounded-tr-[70px]  w-screen h-full ' /> 
+                    <View  className='absolute w-screen h-full -z-20' style={themeBackGroundColor} /> 
+                    <View  className='relative top-[210px] rounded-tl-[70px] rounded-tr-[70px]  w-screen h-full ' style={backGroundStyle} /> 
                 </View>
             )
             case 6:

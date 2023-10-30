@@ -4,7 +4,7 @@ import Animated, { SlideInDown, SlideOutDown } from 'react-native-reanimated'
 
 const NFC = () => {
   return (
-    <Animated.View entering={SlideInDown} exiting={SlideOutDown} className='absolute top-20 w-screen h-full bg-white z-10 justify-center items-center pb-[80px]'>
+    <Animated.View entering={SlideInDown} exiting={SlideOutDown} className='absolute top-0 pt-5 w-screen h-full bg-white z-[10] rounded-tl-[50px] rounded-tr-[50px] overflow-hidden justify-start items-center px-5 pb-[80px]'  >
       <Text>NFC</Text>
     </Animated.View>
   )

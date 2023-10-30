@@ -43,12 +43,12 @@ const Navigator = () => {
             className='absolute bottom-0 w-full h-[80px] flex-row justify-center bg-white items-center z-[15] '
             style={
                 UiState.pages.showNavigator
-                ? { bottom: 0 }
-                : { bottom: -80 }
+                ? { bottom: 50 }
+                : { bottom: -30 }
             }>
                 <TouchableOpacity
                     onPressOut={() => {
-                        UiDispatch({toggle:'pages' , section:'showNavigator'})
+                        UiDispatch({function:'togglePages' , page:'showNavigator'})
                         // dispatch({ type: 'setNavs', id: -1 })
                     }
                     }

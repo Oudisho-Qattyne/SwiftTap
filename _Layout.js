@@ -11,26 +11,27 @@ import Account from './screens/Account/Account'
 import CreateAccount from './screens/CreateAccount/CreateAccount'
 import Navigator from './UI/Navigator'
 import Loading from './UI/Loading'
+import Profiles from './screens/Profiles/Profiles'
 
 
 const Layout = () => {
     // useTheme()
-    const { AppState, dispatch ,UiEvents} = useContext(AppContext)
+    const {dispatch ,UiEvents} = useContext(AppContext)
 
 
     return (
             <View className="relative h-full z-10">
                 {
-                    AppState.logedIn &&
+                    UiEvents.logedIn &&
                     <View className='w-screen h-full justify-center items-center'>
-                        <Account />
-                        <Navigator />
+                        <Profiles/>
+                        {/* <Navigator /> */}
                     </View>
 
 
                 }
                 {
-                    !AppState.logedIn &&
+                    !UiEvents.logedIn &&
                     <CreateAccount />
                 }
                 {

@@ -4,11 +4,11 @@ import { AppContext } from '../AppState'
 
 const Button = ({ title , width , height ,onPressIn , disabled}) => {
     const { AppState, dispatch } = useContext(AppContext)
-    const buttons = AppState.theme.buttons
+    const buttons = AppState.profile.theme.buttons
     let buttonStyle
     let textStyle = { 
         color: buttons.textColor,
-        fontFamily:AppState.theme.textFont
+        fontFamily:AppState.profile.theme.textFont
     }
     if(buttons.fill){
         buttonStyle = {

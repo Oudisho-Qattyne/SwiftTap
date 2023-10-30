@@ -61,7 +61,7 @@ const CustomizeBackground = () => {
                                     {
                                         type: 'setBackGroundStyle',
                                         prop: 'backGroundColor',
-                                        backGroundColor: item.item.color
+                                        value: item.item.color
                                     })}
                                 className="w-[35px] h-[35px] rounded-full m-2">
                             </TouchableOpacity>
@@ -69,186 +69,186 @@ const CustomizeBackground = () => {
                     }} />
             </View>
             break;
-        case 2:
-            editBackGround = <View>
-                <Text className="p-5 text-[#8C8C8C]">backGround Color</Text>
-                <FlatList
-                    scrollEnabled={false}
-                    data={AppState.textColors}
-                    extraData={AppState.textColors}
-                    contentContainerStyle={{ flexDirection: "row", flexWrap: 'wrap', minWidth: '100%', justifyContent: 'center', alignItems: 'center', paddingBottom: 20 }}
-                    renderItem={(item) => {
-                        return (
-                            <TouchableOpacity
-                                style={{
-                                    backgroundColor: item.item.color,
-                                    borderWidth: 2,
-                                    borderColor: '#bfbfbf'
-                                }}
-                                onPressOut={() => dispatch(
-                                    {
-                                        type: 'setBackGroundStyle',
-                                        prop: 'backGroundColor',
-                                        backGroundColor: item.item.color
-                                    })}
-                                className="w-[35px] h-[35px] rounded-full m-2">
-                            </TouchableOpacity>
-                        )
-                    }} />
-                <Text className="p-5 text-[#8C8C8C]">Theme BackGroundColor Color</Text>
+        // case 2:
+        //     editBackGround = <View>
+        //         <Text className="p-5 text-[#8C8C8C]">backGround Color</Text>
+        //         <FlatList
+        //             scrollEnabled={false}
+        //             data={AppState.textColors}
+        //             extraData={AppState.textColors}
+        //             contentContainerStyle={{ flexDirection: "row", flexWrap: 'wrap', minWidth: '100%', justifyContent: 'center', alignItems: 'center', paddingBottom: 20 }}
+        //             renderItem={(item) => {
+        //                 return (
+        //                     <TouchableOpacity
+        //                         style={{
+        //                             backgroundColor: item.item.color,
+        //                             borderWidth: 2,
+        //                             borderColor: '#bfbfbf'
+        //                         }}
+        //                         onPressOut={() => dispatch(
+        //                             {
+        //                                 type: 'setBackGroundStyle',
+        //                                 prop: 'backGroundColor',
+        //                                 backGroundColor: item.item.color
+        //                             })}
+        //                         className="w-[35px] h-[35px] rounded-full m-2">
+        //                     </TouchableOpacity>
+        //                 )
+        //             }} />
+        //         <Text className="p-5 text-[#8C8C8C]">Theme BackGroundColor Color</Text>
 
-                <FlatList
-                    scrollEnabled={false}
-                    data={AppState.textColors}
-                    extraData={AppState.textColors}
-                    contentContainerStyle={{ flexDirection: "row", flexWrap: 'wrap', minWidth: '100%', justifyContent: 'center', alignItems: 'center', paddingBottom: 20 }}
-                    renderItem={(item) => {
-                        return (
-                            <TouchableOpacity
-                                style={{
-                                    backgroundColor: item.item.color,
-                                    borderWidth: 2,
-                                    borderColor: '#bfbfbf'
-                                }}
-                                onPressOut={() => dispatch(
-                                    {
-                                        type: 'setBackGroundStyle',
-                                        prop: 'themeBackGroundColor',
-                                        themeBackGroundColor: item.item.color
-                                    })}
-                                className="w-[35px] h-[35px] rounded-full m-2">
-                            </TouchableOpacity>
-                        )
-                    }} />
-            </View>
-            break;
-        case 3:
-            editBackGround = <View>
-                <TouchableOpacity onPress={() => pickImage()}>
-                    <Text className="text-xl text-[#bfbfbf]">select backgroung image</Text>
-                </TouchableOpacity>
-            </View>
-            break;
-        case 4:
-            editBackGround = <View className="w-full h-auto">
-                <Text className="p-5 text-[#8C8C8C]">gradient Angel</Text>
-                <Slider
-                    value={AppState.theme.backGround.gradientAngel}
-                    step={1}
-                    animateTransitions={true}
-                    onSlidingComplete={(value) => dispatch({ type: 'setBackGroundStyle', prop: 'gradientAngel', gradientAngel: toString(value) })}
-                    minimumValue={0}
-                    maximumValue={360}
+        //         <FlatList
+        //             scrollEnabled={false}
+        //             data={AppState.textColors}
+        //             extraData={AppState.textColors}
+        //             contentContainerStyle={{ flexDirection: "row", flexWrap: 'wrap', minWidth: '100%', justifyContent: 'center', alignItems: 'center', paddingBottom: 20 }}
+        //             renderItem={(item) => {
+        //                 return (
+        //                     <TouchableOpacity
+        //                         style={{
+        //                             backgroundColor: item.item.color,
+        //                             borderWidth: 2,
+        //                             borderColor: '#bfbfbf'
+        //                         }}
+        //                         onPressOut={() => dispatch(
+        //                             {
+        //                                 type: 'setBackGroundStyle',
+        //                                 prop: 'themeBackGroundColor',
+        //                                 themeBackGroundColor: item.item.color
+        //                             })}
+        //                         className="w-[35px] h-[35px] rounded-full m-2">
+        //                     </TouchableOpacity>
+        //                 )
+        //             }} />
+        //     </View>
+        //     break;
+        // case 3:
+        //     editBackGround = <View>
+        //         <TouchableOpacity onPress={() => pickImage()}>
+        //             <Text className="text-xl text-[#bfbfbf]">select backgroung image</Text>
+        //         </TouchableOpacity>
+        //     </View>
+        //     break;
+        // case 4:
+        //     editBackGround = <View className="w-full h-auto">
+        //         <Text className="p-5 text-[#8C8C8C]">gradient Angel</Text>
+        //         <Slider
+        //             value={AppState.profile.theme.backGround.gradientAngel}
+        //             step={1}
+        //             animateTransitions={true}
+        //             onSlidingComplete={(value) => dispatch({ type: 'setBackGroundStyle', prop: 'gradientAngel', gradientAngel: toString(value) })}
+        //             minimumValue={0}
+        //             maximumValue={360}
 
-                />
+        //         />
 
 
 
-                <Text className="p-5 text-[#8C8C8C]">First Gradient Color</Text>
+        //         <Text className="p-5 text-[#8C8C8C]">First Gradient Color</Text>
 
-                <FlatList
-                    scrollEnabled={false}
-                    data={AppState.textColors}
-                    extraData={AppState.textColors}
-                    contentContainerStyle={{ flexDirection: "row", flexWrap: 'wrap', minWidth: '100%' , height:'100%', justifyContent: 'center', alignItems: 'center', paddingBottom: 20 }}
-                    renderItem={(item) => {
-                        return (
-                            <TouchableOpacity
-                                style={{
-                                    backgroundColor: item.item.color,
-                                    borderWidth: 2,
-                                    borderColor: '#bfbfbf'
-                                }}
-                                onPressOut={() => dispatch(
-                                    {
-                                        type: 'setBackGroundStyle',
-                                        prop: 'firstGradientColor',
-                                        firstGradientColor: item.item.color
-                                    })}
-                                className=" relative w-[35px] h-[35px] rounded-full m-2">
-                            </TouchableOpacity>
-                        )
-                    }} />
-                <Text className="p-5 text-[#8C8C8C]">Second Gradient Color</Text>
+        //         <FlatList
+        //             scrollEnabled={false}
+        //             data={AppState.textColors}
+        //             extraData={AppState.textColors}
+        //             contentContainerStyle={{ flexDirection: "row", flexWrap: 'wrap', minWidth: '100%' , height:'100%', justifyContent: 'center', alignItems: 'center', paddingBottom: 20 }}
+        //             renderItem={(item) => {
+        //                 return (
+        //                     <TouchableOpacity
+        //                         style={{
+        //                             backgroundColor: item.item.color,
+        //                             borderWidth: 2,
+        //                             borderColor: '#bfbfbf'
+        //                         }}
+        //                         onPressOut={() => dispatch(
+        //                             {
+        //                                 type: 'setBackGroundStyle',
+        //                                 prop: 'firstGradientColor',
+        //                                 firstGradientColor: item.item.color
+        //                             })}
+        //                         className=" relative w-[35px] h-[35px] rounded-full m-2">
+        //                     </TouchableOpacity>
+        //                 )
+        //             }} />
+        //         <Text className="p-5 text-[#8C8C8C]">Second Gradient Color</Text>
 
-                <FlatList
-                    scrollEnabled={false}
-                    data={AppState.textColors}
-                    extraData={AppState.textColors}
-                    contentContainerStyle={{ flexDirection: "row", flexWrap: 'wrap', minWidth: '100%', height:'100%',  justifyContent: 'center', alignItems: 'center' }}
-                    renderItem={(item) => {
-                        return (
-                            <TouchableOpacity
-                                style={{
-                                    backgroundColor: item.item.color,
-                                    borderWidth: 2,
-                                    borderColor: '#bfbfbf'
-                                }}
-                                onPressOut={() => dispatch(
-                                    {
-                                        type: 'setBackGroundStyle',
-                                        prop: 'secondGradientColor',
-                                        secondGradientColor: item.item.color
-                                    })}
-                                className="relative w-[35px] h-[35px] rounded-full m-2">
-                            </TouchableOpacity>
-                        )
-                    }} />
+        //         <FlatList
+        //             scrollEnabled={false}
+        //             data={AppState.textColors}
+        //             extraData={AppState.textColors}
+        //             contentContainerStyle={{ flexDirection: "row", flexWrap: 'wrap', minWidth: '100%', height:'100%',  justifyContent: 'center', alignItems: 'center' }}
+        //             renderItem={(item) => {
+        //                 return (
+        //                     <TouchableOpacity
+        //                         style={{
+        //                             backgroundColor: item.item.color,
+        //                             borderWidth: 2,
+        //                             borderColor: '#bfbfbf'
+        //                         }}
+        //                         onPressOut={() => dispatch(
+        //                             {
+        //                                 type: 'setBackGroundStyle',
+        //                                 prop: 'secondGradientColor',
+        //                                 secondGradientColor: item.item.color
+        //                             })}
+        //                         className="relative w-[35px] h-[35px] rounded-full m-2">
+        //                     </TouchableOpacity>
+        //                 )
+        //             }} />
 
-            </View>
-            break;
-        case 5:
-            editBackGround = <View>
-                <Text className="p-5 text-[#8C8C8C]">backGround Color</Text>
-                <FlatList
-                    scrollEnabled={false}
-                    data={AppState.textColors}
-                    extraData={AppState.textColors}
-                    contentContainerStyle={{ flexDirection: "row", flexWrap: 'wrap', minWidth: '100%', height:'100%', justifyContent: 'center', alignItems: 'center'}}
-                    renderItem={(item) => {
-                        return (
-                            <TouchableOpacity
-                                style={{
-                                    backgroundColor: item.item.color,
-                                    borderWidth: 2,
-                                    borderColor: '#bfbfbf'
-                                }}
-                                onPressOut={() => dispatch(
-                                    {
-                                        type: 'setBackGroundStyle',
-                                        prop: 'backGroundColor',
-                                        backGroundColor: item.item.color
-                                    })}
-                                className="w-[35px] h-[35px] rounded-full m-2">
-                            </TouchableOpacity>
-                        )
-                    }} />
-                <Text className="p-5 text-[#8C8C8C]">Theme BackGroundColor Color</Text>
-                <FlatList
-                    scrollEnabled={false}
-                    data={AppState.textColors}
-                    extraData={AppState.textColors}
-                    keyExtractor={item => {return(item.id + 'bgcolor')}}
-                    contentContainerStyle={{ flexDirection: "row", flexWrap: 'wrap', minWidth: '100%', height:'100%', justifyContent: 'center', alignItems: 'center', paddingBottom: 20 }}
-                    renderItem={(item) => {
-                        return (
-                            <TouchableOpacity
-                                style={{
-                                    backgroundColor: item.item.color,
-                                    borderWidth: 2,
-                                    borderColor: '#bfbfbf'
-                                }}
-                                onPressOut={() => dispatch(
-                                    {
-                                        type: 'setBackGroundStyle',
-                                        prop: 'themeBackGroundColor',
-                                        themeBackGroundColor: item.item.color
-                                    })}
-                                className="w-[35px] h-[35px] rounded-full m-2">
-                            </TouchableOpacity>
-                        )
-                    }} />
-            </View>
+        //     </View>
+        //     break;
+        // case 5:
+        //     editBackGround = <View>
+        //         <Text className="p-5 text-[#8C8C8C]">backGround Color</Text>
+        //         <FlatList
+        //             scrollEnabled={false}
+        //             data={AppState.textColors}
+        //             extraData={AppState.textColors}
+        //             contentContainerStyle={{ flexDirection: "row", flexWrap: 'wrap', minWidth: '100%', height:'100%', justifyContent: 'center', alignItems: 'center'}}
+        //             renderItem={(item) => {
+        //                 return (
+        //                     <TouchableOpacity
+        //                         style={{
+        //                             backgroundColor: item.item.color,
+        //                             borderWidth: 2,
+        //                             borderColor: '#bfbfbf'
+        //                         }}
+        //                         onPressOut={() => dispatch(
+        //                             {
+        //                                 type: 'setBackGroundStyle',
+        //                                 prop: 'backGroundColor',
+        //                                 backGroundColor: item.item.color
+        //                             })}
+        //                         className="w-[35px] h-[35px] rounded-full m-2">
+        //                     </TouchableOpacity>
+        //                 )
+        //             }} />
+        //         <Text className="p-5 text-[#8C8C8C]">Theme BackGroundColor Color</Text>
+        //         <FlatList
+        //             scrollEnabled={false}
+        //             data={AppState.textColors}
+        //             extraData={AppState.textColors}
+        //             keyExtractor={item => {return(item.id + 'bgcolor')}}
+        //             contentContainerStyle={{ flexDirection: "row", flexWrap: 'wrap', minWidth: '100%', height:'100%', justifyContent: 'center', alignItems: 'center', paddingBottom: 20 }}
+        //             renderItem={(item) => {
+        //                 return (
+        //                     <TouchableOpacity
+        //                         style={{
+        //                             backgroundColor: item.item.color,
+        //                             borderWidth: 2,
+        //                             borderColor: '#bfbfbf'
+        //                         }}
+        //                         onPressOut={() => dispatch(
+        //                             {
+        //                                 type: 'setBackGroundStyle',
+        //                                 prop: 'themeBackGroundColor',
+        //                                 themeBackGroundColor: item.item.color
+        //                             })}
+        //                         className="w-[35px] h-[35px] rounded-full m-2">
+        //                     </TouchableOpacity>
+        //                 )
+        //             }} />
+        //     </View>
 
         default:
             break;

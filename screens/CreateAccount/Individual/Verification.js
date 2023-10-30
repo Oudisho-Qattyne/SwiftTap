@@ -148,8 +148,12 @@ const Verification = () => {
             if(response){
                 CreateAccountDispatch({ type: 'nextPage' })
             }
-            if(err.response?.data?.data?.code==116){
+            if(err.response?.data?.data?.code==116 || err.response?.data?.data?.code== 115){
+
                 setError(err.response.data.message)
+            }
+            else{
+                setError('something went wrong')
             }
         }
         else {
@@ -160,7 +164,7 @@ const Verification = () => {
     }
 
     const resendCode = async () => {
-        const res = await API(
+        const {err , response } = await API(
             {
                 type:'resendCode',
                 payload:{
@@ -169,13 +173,16 @@ const Verification = () => {
                 }
             }
         )
-        if(res.response?.status==200){
+        if(response?.status==200){
             setResendeCodeDone(true)
             setResendeCodeError(false)
         }
-        if(res.err){
+        if(err.response?.data?.data){
             setResendeCodeError(true)
             setResendeCodeDone(false)
+        }
+        else if(err.response?.data?.data?.code==116 || err.response?.data?.data?.code== 115){
+            setError(err.response.data.message)
         }
     }
     return (
@@ -262,7 +269,7 @@ const Verification = () => {
                     }
                     {
                     error &&
-                        <Text className="text-center py-3 mt-5 text-white bg-red-600 font-black rounded-full">{error}</Text>
+                        <Text className="text-center py-3 mt-5 text-red-600 font-black rounded-full">{error}</Text>
                     }
                 </Animated.View >
             }

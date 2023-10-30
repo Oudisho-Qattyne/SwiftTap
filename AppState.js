@@ -5,309 +5,12 @@ export const AppContext = createContext()
 export const StateProvider = ({ children }) => {
 
 
-
-    const setData = (state, action) => {
-        switch (action.section) {
-            case "socialsAndLinks":
-
-                return (
-                    {
-                        ...state,
-                        socialsAndLinks: action.data
-                    }
-                )
-                break;
-
-            case "flashContacts":
-                return (
-                    {
-                        ...state,
-                        flashContacts: action.data
-                    }
-                )
-            case "documents":
-                return (
-                    {
-                        ...state,
-                        documents: action.data
-                    }
-                )
-            case "mainInfo":
-                return (
-                    {
-                        ...state,
-                        mainInfo: action.data
-                    }
-                )
-            case "contactCard":
-                return (
-                    {
-                        ...state,
-                        contactCard: action.data
-                    }
-                )
-            default:
-                break;
-        }
-    }
-    const changeValue = (state, action) => {
-        switch (action.section) {
-            case "socialsAndLinks":
-                const newSocialsAndLinks = [...state.socialsAndLinks]
-                for (let i = 0; i < newSocialsAndLinks.length; i++) {
-                    if (newSocialsAndLinks[i].id == action.id) {
-                        newSocialsAndLinks[i] = {
-                            ...newSocialsAndLinks[i],
-                            value: action.value
-                        }
-                    }
-                }
-                return ({
-                    ...state,
-                    socialsAndLinks: newSocialsAndLinks
-                })
-
-            case "flashContacts":
-                const newFlashContacts = [...state.flashContacts]
-                for (let i = 0; i < newFlashContacts.length; i++) {
-                    if (newFlashContacts[i].id == action.id) {
-                        newFlashContacts[i] = {
-                            ...newFlashContacts[i],
-                            value: action.value
-                        }
-                    }
-                }
-                return ({
-                    ...state,
-                    flashContacts: newFlashContacts
-                })
-            case "documents":
-                const newDocuments = [...state.documents]
-                for (let i = 0; i < newDocuments.length; i++) {
-                    if (newDocuments[i].id == action.id) {
-                        newDocuments[i] = {
-                            ...newDocuments[i],
-                            value: action.value
-                        }
-                    }
-                }
-                return ({
-                    ...state,
-                    documents: newDocuments
-                })
-            case "mainInfo":
-                const newMainInfo = [...state.mainInfo]
-                for (let i = 0; i < newMainInfo.length; i++) {
-                    if (newMainInfo[i].id == action.id) {
-                        newMainInfo[i] = {
-                            ...newMainInfo[i],
-                            value: action.value
-                        }
-                    }
-                }
-                return ({
-                    ...state,
-                    mainInfo: newMainInfo
-                })
-            case "contactCard":
-                const contactCard = [...state.contactCard]
-                for (let i = 0; i < contactCard.length; i++) {
-                    if (contactCard[i].id == action.id) {
-                        contactCard[i] = {
-                            ...contactCard[i],
-                            value: action.value
-                        }
-                    }
-                }
-                return ({
-                    ...state,
-                    contactCard: contactCard
-                })
-            default:
-                break;
-        }
-    }
-    const deleteIcon = (state, action) => {
-        switch (action.section) {
-            case "socialsAndLinks":
-
-                const newSocialsAndLinks = state.socialsAndLinks.filter(SocialOrLink => SocialOrLink.id !== action.id)
-                return (
-                    {
-                        ...state,
-                        socialsAndLinks: newSocialsAndLinks
-                    }
-                )
-                break;
-
-            case "flashContacts":
-                const newFlashContacts = state.flashContacts.filter(flashContact => flashContact.id !== action.id)
-                return (
-                    {
-                        ...state,
-                        flashContacts: newFlashContacts
-                    }
-                )
-            case "documents":
-                const newDocuments = state.documents.filter(document => document.id !== action.id)
-                return (
-                    {
-                        ...state,
-                        documents: newDocuments
-                    }
-                )
-            case "mainInfo":
-                const newMainInfo = state.mainInfo.filter(mainInfo => mainInfo.id !== action.id)
-                return (
-                    {
-                        ...state,
-                        mainInfo: newMainInfo
-                    }
-                )
-            case "contactCard":
-                const newContactCard = state.contactCard.filter(contactCard => contactCard.id !== action.id)
-                return (
-                    {
-                        ...state,
-                        contactCard: newContactCard
-                    }
-                )
-            default:
-                break;
-        }
-    }
-    const toggleIsActive = (state, action) => {
-        switch (action.section) {
-            case "socialsAndLinks":
-                const newSocialsAndLinks = [...state.socialsAndLinks]
-                for (let i = 0; i < newSocialsAndLinks.length; i++) {
-                    if (newSocialsAndLinks[i].id == action.id) {
-                        newSocialsAndLinks[i] = {
-                            ...newSocialsAndLinks[i],
-                            isActive: action.isActive ? 1 : 0
-                        }
-                    }
-                }
-                return ({
-                    ...state,
-                    socialsAndLinks: newSocialsAndLinks
-                })
-                break;
-
-            case "flashContacts":
-                const newFlashContacts = [...state.flashContacts]
-                for (let i = 0; i < newFlashContacts.length; i++) {
-                    if (newFlashContacts[i].id == action.id) {
-                        newFlashContacts[i] = {
-                            ...newFlashContacts[i],
-                            isActive: action.isActive ? 1 : 0
-                        }
-                    }
-                }
-                return ({
-                    ...state,
-                    flashContacts: newFlashContacts
-                })
-            case "documents":
-                const newDocuments = [...state.documents]
-                for (let i = 0; i < newDocuments.length; i++) {
-                    if (newDocuments[i].id == action.id) {
-                        newDocuments[i] = {
-                            ...newDocuments[i],
-                            isActive: action.isActive ? 1 : 0
-                        }
-                    }
-                }
-                return ({
-                    ...state,
-                    documents: newDocuments
-                })
-            case "mainInfo":
-                const newMainInfo = [...state.mainInfo]
-                for (let i = 0; i < newMainInfo.length; i++) {
-                    if (newMainInfo[i].id == action.id) {
-                        newMainInfo[i] = {
-                            ...newMainInfo[i],
-                            isActive: action.isActive ? 1 : 0
-                        }
-                    }
-                }
-                return ({
-                    ...state,
-                    mainInfo: newMainInfo
-                })
-            case "contactCard":
-                const newContactCard = [...state.contactCard]
-                for (let i = 0; i < newContactCard.length; i++) {
-                    if (newContactCard[i].id == action.id) {
-                        newContactCard[i] = {
-                            ...newContactCard[i],
-                            isActive: action.isActive ? 1 : 0
-                        }
-                    }
-                }
-                return ({
-                    ...state,
-                    contactCard: newContactCard
-                })
-            default:
-                break;
-        }
-    }
-    const setLoading = (state, action) => {
-        return (
-            {
-                ...state,
-                themeLoading: action.loading
-            }
-        )
-    }
     const setState = (state, action) => {
-        return ({
-            ...state,
-            ...action.allState
-        })
-    }
-    const setNavs = (state, action) => {
-        const newNavs = state.navs.map(nav => {
-            if (nav.id == action.id) {
-                return ({
-                    ...nav,
-                    isActive: !nav.isActive
-                })
-            }
-            else {
-                return ({
-                    ...nav,
-                    isActive: false
-                })
-            }
-        })
+        const newState = { ...state }
+        newState[action.key] = action.value
+
         return (
-            {
-                ...state,
-                navs: newNavs,
-                editContactCard: false,
-                editDocuments: false,
-                editFlashContacts: false,
-                editMainInfo: false,
-                editSocialsAndLinks: false,
-                editable: false,
-            }
-        )
-    }
-    const closeAllNavs = (state) => {
-        const newNavs = state.navs.map(nav => (
-            {
-                ...nav,
-                isActive: false
-            }
-        ))
-        return (
-            {
-                ...state,
-                navs: newNavs
-            }
+            newState
         )
     }
     const setFontFamily = (state, action) => {
@@ -315,7 +18,7 @@ export const StateProvider = ({ children }) => {
             {
                 ...state,
                 theme: {
-                    ...state.theme,
+                    ...state.profile.theme,
                     textFont: action.fontFamily
                 }
             }
@@ -325,9 +28,12 @@ export const StateProvider = ({ children }) => {
         return (
             {
                 ...state,
-                theme: {
-                    ...state.theme,
-                    textColor: action.textColor
+                profile: {
+                    ...state.profile,
+                    theme: {
+                        ...state.profile.theme,
+                        textColor: action.textColor
+                    }
                 }
             }
         )
@@ -338,11 +44,14 @@ export const StateProvider = ({ children }) => {
                 return (
                     {
                         ...state,
-                        theme: {
-                            ...state.theme,
-                            backGround: {
-                                ...state.theme.backGround,
-                                type: action.backGroundType
+                        profile: {
+                            ...state.profile,
+                            theme: {
+                                ...state.profile.theme,
+                                backGround: {
+                                    ...state.profile.theme.backGround,
+                                    type: action.backGroundType
+                                }
                             }
                         }
                     }
@@ -352,11 +61,14 @@ export const StateProvider = ({ children }) => {
                 return (
                     {
                         ...state,
-                        theme: {
-                            ...state.theme,
-                            backGround: {
-                                ...state.theme.backGround,
-                                firstHalfCircleColor: action.firstHalfCircleColor
+                        profile: {
+                            ...state.profile,
+                            theme: {
+                                ...state.profile.theme,
+                                backGround: {
+                                    ...state.profile.theme.backGround,
+                                    firstHalfCircleColor: action.firstHalfCircleColor
+                                }
                             }
                         }
                     }
@@ -366,11 +78,14 @@ export const StateProvider = ({ children }) => {
                 return (
                     {
                         ...state,
-                        theme: {
-                            ...state.theme,
-                            backGround: {
-                                ...state.theme.backGround,
-                                secondHalfCircleColor: action.secondHalfCircleColor
+                        profile: {
+                            ...state.profile,
+                            theme: {
+                                ...state.profile.theme,
+                                backGround: {
+                                    ...state.profile.theme.backGround,
+                                    secondHalfCircleColor: action.secondHalfCircleColor
+                                }
                             }
                         }
                     }
@@ -380,11 +95,14 @@ export const StateProvider = ({ children }) => {
                 return (
                     {
                         ...state,
-                        theme: {
-                            ...state.theme,
-                            backGround: {
-                                ...state.theme.backGround,
-                                backGroundColor: action.backGroundColor
+                        profile: {
+                            ...state.profile,
+                            theme: {
+                                ...state.profile.theme,
+                                backGround: {
+                                    ...state.profile.theme.backGround,
+                                    backGroundColor: action.backGroundColor
+                                }
                             }
                         }
                     }
@@ -394,11 +112,14 @@ export const StateProvider = ({ children }) => {
                 return (
                     {
                         ...state,
-                        theme: {
-                            ...state.theme,
-                            backGround: {
-                                ...state.theme.backGround,
-                                themeBackGroundColor: action.themeBackGroundColor
+                        profile: {
+                            ...state.profile,
+                            theme: {
+                                ...state.profile.theme,
+                                backGround: {
+                                    ...state.profile.theme.backGround,
+                                    themeBackGroundColor: action.themeBackGroundColor
+                                }
                             }
                         }
                     }
@@ -408,11 +129,14 @@ export const StateProvider = ({ children }) => {
                 return (
                     {
                         ...state,
-                        theme: {
-                            ...state.theme,
-                            backGround: {
-                                ...state.theme.backGround,
-                                backGroundImage: action.backGroundImage
+                        profile: {
+                            ...state.profile,
+                            theme: {
+                                ...state.profile.theme,
+                                backGround: {
+                                    ...state.profile.theme.backGround,
+                                    backGroundImage: action.backGroundImage
+                                }
                             }
                         }
                     }
@@ -422,11 +146,14 @@ export const StateProvider = ({ children }) => {
                 return (
                     {
                         ...state,
-                        theme: {
-                            ...state.theme,
-                            backGround: {
-                                ...state.theme.backGround,
-                                backGroundImageFile: action.backGroundImageFile
+                        profile: {
+                            ...state.profile,
+                            theme: {
+                                ...state.profile.theme,
+                                backGround: {
+                                    ...state.profile.theme.backGround,
+                                    backGroundImageFile: action.backGroundImageFile
+                                }
                             }
                         }
                     }
@@ -436,11 +163,14 @@ export const StateProvider = ({ children }) => {
                 return (
                     {
                         ...state,
-                        theme: {
-                            ...state.theme,
-                            backGround: {
-                                ...state.theme.backGround,
-                                firstGradientColor: action.firstGradientColor
+                        profile: {
+                            ...state.profile,
+                            theme: {
+                                ...state.profile.theme,
+                                backGround: {
+                                    ...state.profile.theme.backGround,
+                                    firstGradientColor: action.firstGradientColor
+                                }
                             }
                         }
                     }
@@ -450,11 +180,14 @@ export const StateProvider = ({ children }) => {
                 return (
                     {
                         ...state,
-                        theme: {
-                            ...state.theme,
-                            backGround: {
-                                ...state.theme.backGround,
-                                secondGradientColor: action.secondGradientColor
+                        profile: {
+                            ...state.profile,
+                            theme: {
+                                ...state.profile.theme,
+                                backGround: {
+                                    ...state.profile.theme.backGround,
+                                    secondGradientColor: action.secondGradientColor
+                                }
                             }
                         }
                     }
@@ -464,11 +197,14 @@ export const StateProvider = ({ children }) => {
                 return (
                     {
                         ...state,
-                        theme: {
-                            ...state.theme,
-                            backGround: {
-                                ...state.theme.backGround,
-                                gradientAngel: action.gradientAngel
+                        profile: {
+                            ...state.profile,
+                            theme: {
+                                ...state.profile.theme,
+                                backGround: {
+                                    ...state.profile.theme.backGround,
+                                    gradientAngel: action.gradientAngel
+                                }
                             }
                         }
                     }
@@ -485,52 +221,64 @@ export const StateProvider = ({ children }) => {
                 return (
                     {
                         ...state,
-                        theme: {
-                            ...state.theme,
-                            icons: {
-                                ...state.theme.icons,
-                                color: action.color
-                            }
-                        },
+                        profile: {
+                            ...state.profile,
+                            theme: {
+                                ...state.profile.theme,
+                                icons: {
+                                    ...state.profile.theme.icons,
+                                    color: action.color
+                                }
+                            },
+                        }
                     }
                 )
             case 'textColor':
                 return (
                     {
                         ...state,
-                        theme: {
-                            ...state.theme,
-                            icons: {
-                                ...state.theme.icons,
-                                textColor: action.textColor
-                            }
-                        },
+                        profile: {
+                            ...state.profile,
+                            theme: {
+                                ...state.profile.theme,
+                                icons: {
+                                    ...state.profile.theme.icons,
+                                    textColor: action.textColor
+                                }
+                            },
+                        }
                     }
                 )
             case 'fill':
                 return (
                     {
                         ...state,
-                        theme: {
-                            ...state.theme,
-                            icons: {
-                                ...state.theme.icons,
-                                fill: action.fill
-                            }
-                        },
+                        profile: {
+                            ...state.profile,
+                            theme: {
+                                ...state.profile.theme,
+                                icons: {
+                                    ...state.profile.theme.icons,
+                                    fill: action.fill
+                                }
+                            },
+                        }
                     }
                 )
             case 'type':
                 return (
                     {
                         ...state,
-                        theme: {
-                            ...state.theme,
-                            icons: {
-                                ...state.theme.icons,
-                                type: action.iconType
-                            }
-                        },
+                        profile: {
+                            ...state.profile,
+                            theme: {
+                                ...state.profile.theme,
+                                icons: {
+                                    ...state.profile.theme.icons,
+                                    type: action.iconType
+                                }
+                            },
+                        }
                     }
                 )
             default:
@@ -543,11 +291,14 @@ export const StateProvider = ({ children }) => {
                 return (
                     {
                         ...state,
-                        theme: {
-                            ...state.theme,
-                            buttons: {
-                                ...state.theme.buttons,
-                                type: action.buttonType
+                        profile: {
+                            ...state.profile,
+                            theme: {
+                                ...state.profile.theme,
+                                buttons: {
+                                    ...state.profile.theme.buttons,
+                                    type: action.buttonType
+                                }
                             }
                         }
                     }
@@ -556,11 +307,14 @@ export const StateProvider = ({ children }) => {
                 return (
                     {
                         ...state,
-                        theme: {
-                            ...state.theme,
-                            buttons: {
-                                ...state.theme.buttons,
-                                backGroundColor: action.backGroundColor
+                        profile: {
+                            ...state.profile,
+                            theme: {
+                                ...state.profile.theme,
+                                buttons: {
+                                    ...state.profile.theme.buttons,
+                                    backGroundColor: action.backGroundColor
+                                }
                             }
                         }
                     }
@@ -569,11 +323,14 @@ export const StateProvider = ({ children }) => {
                 return (
                     {
                         ...state,
-                        theme: {
-                            ...state.theme,
-                            buttons: {
-                                ...state.theme.buttons,
-                                textColor: action.textColor
+                        profile: {
+                            ...state.profile,
+                            theme: {
+                                ...state.profile.theme,
+                                buttons: {
+                                    ...state.profile.theme.buttons,
+                                    textColor: action.textColor
+                                }
                             }
                         }
                     }
@@ -582,11 +339,14 @@ export const StateProvider = ({ children }) => {
                 return (
                     {
                         ...state,
-                        theme: {
-                            ...state.theme,
-                            buttons: {
-                                ...state.theme.buttons,
-                                fill: action.fill
+                        profile: {
+                            ...state.profile,
+                            theme: {
+                                ...state.profile.theme,
+                                buttons: {
+                                    ...state.profile.theme.buttons,
+                                    fill: action.fill
+                                }
                             }
                         }
                     }
@@ -603,60 +363,20 @@ export const StateProvider = ({ children }) => {
             }
         )
     }
-    const addSocialOrLink = (state, action) => {
-        const newItem = {
-            ...action.newItem,
-            id: state.socialsAndLinks.length + 1
+
+    const setInformation = (state, action) => {
+        const newState = { ...state }
+        const sectionIndex = newState.profile.sections.findIndex(section => section.sectionName == action.sectionName)
+        newState.profile.sections[sectionIndex] = {
+            ...newState.profile.sections[sectionIndex],
+            fields: action.fields
         }
-        const newSocialsAndLinks = [...state.socialsAndLinks]
-        newSocialsAndLinks.push(newItem)
-        return (
-            {
-                ...state,
-                socialsAndLinks: newSocialsAndLinks
-            }
-        )
+        return (newState)
     }
+
     const reducer = (state, action) => {
 
         switch (action.type) {
-            case 'deleteIcon':
-                return (
-                    deleteIcon(state, action)
-                )
-            case 'toggleIsActive':
-                return (
-                    toggleIsActive(state, action)
-                )
-            case 'changeValue':
-                return (
-                    changeValue(state, action)
-                )
-            default:
-            case 'setData':
-                return (
-                    setData(state, action)
-                )
-            case 'setLoading':
-                return (
-                    setLoading(state, action)
-                )
-            case 'setState':
-                return (
-                    setState(state, action)
-                )
-            case 'setNavs':
-                return (
-                    setNavs(state, action)
-                )
-            case 'closeAllEdits':
-                return (
-                    closeAllEdits(state)
-                )
-            case 'closeAllNavs':
-                return (
-                    closeAllNavs(state)
-                )
             case 'setFontFamily':
                 return (
                     setFontFamily(state, action)
@@ -681,48 +401,177 @@ export const StateProvider = ({ children }) => {
                 return (
                     setLogedIn(state, action)
                 )
-            case 'addSocialOrLink':
+            case 'setState':
                 return (
-                    addSocialOrLink(state, action)
+                    setState(state, action)
+                )
+            case 'setInformation':
+                return (
+                    setInformation(state, action)
                 )
         }
     }
 
     const [AppState, dispatch] = useReducer(reducer,
         {
-            logedIn: false,
-            themeLoading: true,
-            theme: {
-                customizeable: true,
-                textColor: "#780016",
-                textFont: "amaranth",
-                profileImage: "/assets/img/profilehq.png",
-                profileImageFile: null,
-                profielBorderColor: "#780016",
-                backGround: {
-                    type: 3,
-                    firstHalfCircleColor: "#ECECEC",
-                    secondHalfCircleColor: "#FF0000",
-                    backGroundColor: "#FFB4D1",
-                    themeBackGroundColor: "#ffffff",
-                    backGroundImage: null,
-                    backGroundImageFile: null,
-                    firstGradientColor: "#b0a71d",
-                    secondGradientColor: "#6ef536",
-                    gradientAngel: 1
+            profile: {
+                "profileId": 1,
+                "profileName": "personal",
+                "profileImage": "http://phplaravel-1142829-3976094.cloudwaysapps.com/storage/images/profiles/img_65392a36589b4.png",
+                "theme": {
+                    "customizeable": 1,
+                    "textColor": "#a72e12",
+                    "textFont": "#53b125",
+                    "profielBorderColor": "#e88aa2",
+                    "backGround": {
+                        "type": 1,
+                        "color": "#afec6c"
+                    },
+                    "buttons": {
+                        "type": 1,
+                        "backGroundColor": "#ffffff",
+                        "textColor": "#780016",
+                        "fill": true
+                    },
+                    "icons": {
+                        "color": "#780016",
+                        "textColor": "#780016",
+                        "fill": true,
+                        "type": 1
+                    }
                 },
-                buttons: {
-                    type: 1,
-                    backGroundColor: "#ffffff",
-                    textColor: "#780016",
-                    fill: true
-                },
-                icons: {
-                    color: "#780016",
-                    textColor: "#780016",
-                    fill: true,
-                    type: 1
-                }
+                "sections": [
+                    {
+                        "sectionId": 1,
+                        "sectionName": "Main Info",
+                        "sectionType": "headings",
+                        "fields": [
+                            {
+                                "fieldId": 1,
+                                "fieldName": "Name",
+                                "contents": [
+                                    {
+                                        "contentId": 1,
+                                        "contentValue": "",
+                                        "contentType": "text",
+                                        "isActive": true
+                                    }
+                                ]
+                            },
+                            {
+                                "fieldId": 2,
+                                "fieldName": "Bio",
+                                "contents": [
+                                    {
+                                        "contentId": 1,
+                                        "contentValue": "",
+                                        "contentType": "text",
+                                        "isActive": true
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "sectionId": 2,
+                        "sectionName": "Contacts",
+                        "sectionType": "contact",
+                        "fields": [
+                            {
+                                "fieldId": 3,
+                                "fieldName": "Whatsapp",
+                                "contents": [
+                                    {
+                                        "contentId": 1,
+                                        "contentValue": "",
+                                        "contentType": "text",
+                                        "isActive": true
+                                    },
+                                ]
+                            },
+                            {
+                                "fieldId": 4,
+                                "fieldName": "telegram",
+                                "contents": [
+                                    {
+                                        "contentId": 1,
+                                        "contentValue": "",
+                                        "contentType": "text",
+                                        "isActive": true
+                                    },
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "sectionId": 2,
+                        "sectionName": "Social & links",
+                        "sectionType": "icons",
+                        "fields": [
+                            {
+                                "fieldId": 3,
+                                "fieldName": "Whatsapp",
+                                "contents": [
+                                    {
+                                        "contentId": 1,
+                                        "contentValue": "",
+                                        "contentType": "text",
+                                        "isActive": true
+                                    },
+                                    {
+                                        "contentId": 2,
+                                        "contentValue": "fab|whatsapp",
+                                        "contentType": "icon",
+                                        "isActive": true
+                                    }
+                                ]
+                            },
+                            {
+                                "fieldId": 4,
+                                "fieldName": "telegram",
+                                "contents": [
+                                    {
+                                        "contentId": 1,
+                                        "contentValue": "",
+                                        "contentType": "text",
+                                        "isActive": true
+                                    },
+                                    {
+                                        "contentId": 2,
+                                        "contentValue": "fab|telegram",
+                                        "contentType": "icon",
+                                        "isActive": true
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "sectionId": 3,
+                        "sectionName": "Certificates",
+                        "sectionType": "posts",
+                        "fields": [
+                            {
+                                "fieldId": 5,
+                                "fieldName": "Education",
+                                "contents": [
+                                    {
+                                        "contentId": 1,
+                                        "contentValue": "",
+                                        "contentType": "text",
+                                        "isActive": true
+                                    },
+                                    {
+                                        "contentId": 2,
+                                        "contentValue": "",
+                                        "contentType": "image",
+                                        "isActive": true
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
             },
             buttonsTypes: [
                 {
@@ -757,52 +606,6 @@ export const StateProvider = ({ children }) => {
                     borderRadius: 0
                 }
             ],
-            informations: {
-                flashContacts: [
-                    {
-                        id: 1,
-                        name: "Whats App",
-                        value: "user.name",
-                        isActive: 1,
-                        icon: [
-                            "fab",
-                            "whatsapp"
-                        ]
-                    },
-                    {
-                        id: 2,
-                        name: "message",
-                        value: "user.name",
-                        isActive: 1,
-                        icon: [
-                            "fas",
-                            "message"
-                        ]
-                    },
-                ],
-                socialsAndLinks: [
-                    {
-                        id: 1,
-                        name: "instagram",
-                        value: "user.name",
-                        isActive: 1,
-                        icon: [
-                            "fab",
-                            "instagram"
-                        ]
-                    },
-                ],
-                documents: [
-                    {
-                        id: 1,
-                        name: "CV",
-                        isActive: 1,
-                        icon: ['fas', 'file-pdf']
-                    },
-                ],
-            },
-
-
             fonts: [
                 {
                     id: 1,
@@ -910,35 +713,34 @@ export const StateProvider = ({ children }) => {
 
     const UiReducer = (state, action) => {
         const newState = { ...state }
-        switch (action.toggle) {
-            case 'edit':
+        switch (action.function) {
+            case 'setEditInformation':
+                newState.editInformation = { ...action.sections }
+                break;
+            case 'toggle':
                 newState.editInformation[action.section] = !state.editInformation[action.section]
-                return (newState)
-            case 'pages':
-                Object.keys(newState.pages).map(key => {
-                    if (key != action.section) {
-                        newState.pages[key] = false
-                    }
-                    else {
-                        newState.pages[key] = !state.pages[key]
-                    }
-                }
-                )
-                // newState.pages[action.section] = !state.pages[action.section]
+                break;
+            case 'togglePages':
 
-                return (newState)
+                Object.keys(newState.pages).map(page => {
+                    if(page != 'editable'){
+                        newState.pages[page] = false
+                    }
+                })
+                newState.pages[action.page] = !state.pages[action.page]
+                break;
+            default:
+
+                break;
         }
+        return (newState)
     }
 
 
     const [UiState, UiDispatch] = useReducer(UiReducer,
         {
             editInformation: {
-                image: false,
-                mainInfo: false,
-                flashContacts: false,
-                socialsAndLinks: false,
-                documents: false,
+
             },
             pages: {
                 editable: false,
@@ -1038,7 +840,7 @@ export const StateProvider = ({ children }) => {
 
     const [CreateAccountState, CreateAccountDispatch] = useReducer(CreateAccountReducer,
         {
-            index:5,
+            index: 1,
             Individual: true,
             welcomPages: [
                 {
@@ -1209,24 +1011,24 @@ export const StateProvider = ({ children }) => {
         {
             loading: false,
             error: false,
-
+            logedIn: true,
         }
-    )   
-
+    )
 
     const setSection = (state, action) => {
-        newState = { ...state ,
-                ...action.section
+        newState = {
+            ...state,
+            ...action.section
         }
         return (newState)
     }
 
 
-    const journeyReducer = (state, action) => {    
+    const journeyReducer = (state, action) => {
         switch (action.function) {
             case 'setSection':
                 return (
-                    setSection(state,action)
+                    setSection(state, action)
                 )
 
                 break;
@@ -1253,7 +1055,7 @@ export const StateProvider = ({ children }) => {
                     password: false,
                     error: 'invalid name'
                 },
-                birthDate: {   
+                birthDate: {
 
                     value: null,
                     validation: 'name',
@@ -1298,63 +1100,56 @@ export const StateProvider = ({ children }) => {
                     value: '',
                     validation: 'email-address',
                     valid: true,
-                    password:false,
+                    password: false,
                     error: 'invalid e-mail address'
                 },
                 phone: {
                     value: '',
                     validation: 'phone-pad',
                     valid: true,
-                    password:false,
+                    password: false,
                     error: 'invalid input'
                 },
                 whatsApp: {
                     value: '',
                     validation: 'phone-pad',
                     valid: true,
-                    password:false,
+                    password: false,
                     error: 'invalid input'
                 },
                 telegram: {
                     value: '',
                     validation: 'name',
                     valid: true,
-                    password:false,
+                    password: false,
                     error: 'invalid input'
                 },
             },
-            image:{
-                image:{
-                    value: '',
-                    validation: 'file',
-                    valid: true,
-                    password:false,
-                    error: 'invalid input'
-                }
+            image: null,
+            style: {
+                theme: {
+                    "id": 1,
+                    "customizeable": 1,
+                    "textColor": "#e0c99a",
+                    "textFont": "#dccba0",
+                    "profielBorderColor": "#1301fd",
+                    "backGround": "[\"#4fae6d\"]",
+                    "buttons": "[\"#4b7aa2\"]",
+                    "icons": "[\"#f71e85\"]",
+                    "is_approved": 1,
+                    "is_default": 1,
+                    "created_at": "2023-10-17T10:28:24.000000Z",
+                    "updated_at": "2023-10-17T10:28:24.000000Z",
+                    "deleted_at": null
+                },
             },
-            style:{
-                style:{
-                    value: null,
-                    validation: 'required',
-                    valid: true,
-                    backValid: true,
-                    toched: false,
-                    error: 'invalid input'
-                }
-            },
-            terms:{
-                terms:{
-                    value: false,
-                    validation: 'required',
-                    valid: true,
-                    backValid: true,
-                    toched: false,
-                    error: 'invalid input'
-                }
+            terms: {
+                terms: false,
+                error: null
             }
         })
     return (
-        <AppContext.Provider value={{ AppState: AppState, dispatch: dispatch, CreateAccountState: CreateAccountState, CreateAccountDispatch: CreateAccountDispatch, UiState: UiState, UiDispatch: UiDispatch, UiEvents: UiEvents, UiEventsDispatch: UiEventsDispatch ,journeyInputFields:journeyInputFields , journeyDispatch:journeyDispatch }}>
+        <AppContext.Provider value={{ AppState: AppState, dispatch: dispatch, CreateAccountState: CreateAccountState, CreateAccountDispatch: CreateAccountDispatch, UiState: UiState, UiDispatch: UiDispatch, UiEvents: UiEvents, UiEventsDispatch: UiEventsDispatch, journeyInputFields: journeyInputFields, journeyDispatch: journeyDispatch }}>
             {children}
         </AppContext.Provider>
     )

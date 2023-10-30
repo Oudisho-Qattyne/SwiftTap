@@ -5,11 +5,11 @@ import { AppContext } from '../AppState'
 const Separate = ({ title }) => {
     const {AppState , dispatch } = useContext(AppContext);
     const lineStyle = {
-        backgroundColor:AppState.theme.textColor,
+        backgroundColor:AppState.profile.theme.textColor,
     }
     const textStyle = {
-        color:AppState.theme.textColor,
-        fontFamily:AppState.theme.textFont
+        color:AppState.profile.theme.textColor,
+        fontFamily:AppState.profile.theme.textFont
     }
     return (
         <View className='w-full flex flex-row justify-between items-center'>

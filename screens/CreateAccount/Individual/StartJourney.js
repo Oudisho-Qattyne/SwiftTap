@@ -15,7 +15,7 @@ import useRefreshToken from '../../../Hooks/useRefreshToken'
 const StartJourney = () => {
     const { CreateAccountState, CreateAccountDispatch, UiEventsDispatch } = useContext(AppContext)
     const [regestir, setRegester] = useState(false)
-    const [error, setError] = useState(null)
+    const [err, setError] = useState(null)
     const [personInfo, setPersonInfo] = useState(
         {
             information: {
@@ -67,11 +67,7 @@ const StartJourney = () => {
     )
 
 
-    useEffect(() => {
-        if (error) {
-            setTimeout(() => { })
-        }
-    }, [error])
+
 
 
     const checkInformationValidation = () => {
@@ -188,6 +184,7 @@ const StartJourney = () => {
             newState.information[prop].error = value
             newState.information[prop].valid = false
             setRegester(false)
+            console.log(regestir);
         }
         else {
             newState.regestir[prop].error = value
@@ -254,30 +251,31 @@ const StartJourney = () => {
                 // setRes(res.data)
                 await save('accessToken', res.data.access_token)
                 await save('refreshToken', res.data.refresh_token)
-                // await save('expiresIn', JSON.stringify(parseInt(Date.now() / 1000) + res.data.expires_in - 60))
-                await save('expiresIn','1697013539' )
+                await save('expiresIn', JSON.stringify(parseInt(Date.now() / 1000) + res.data.expires_in - 60))
+                // await save('expiresIn','1697013539' )
                 CreateAccountDispatch({ type: 'nextPage' })
             }
-            catch (error) {
+            catch(error) {
                 // setError(error)
-                if (error.response?.data?.validationErrors) {
-                    Object.keys(error.response?.data?.validationErrors).map(
+                const error2 = error
+                if (error2.response.data.validationErrors) {
+                    Object.keys(error2.response.data.validationErrors).map(
                         prop => {
                             switch (prop) {
                                 case 'email':
-                                    changeErrorValidation('eMail', error.response.data.validationErrors[prop], true)
+                                    changeErrorValidation('eMail', error2.response.data.validationErrors[prop], true)
                                     break;
                                 case 'name':
-                                    changeErrorValidation('userName', error.response.data.validationErrors[prop], true)
+                                    changeErrorValidation('userName', error2.response.data.validationErrors[prop], true)
                                     break;
                                 case 'phone':
-                                    changeErrorValidation('phoneNumber', error.response.data.validationErrors[prop], true)
+                                    changeErrorValidation('phoneNumber', error2.response.data.validationErrors[prop], true)
                                     break;
                                 case 'password':
-                                    changeErrorValidation('password', error.response.data.validationErrors[prop], false)
+                                    changeErrorValidation('password', error2.response.data.validationErrors[prop], false)
                                     break;
                                 case 'password_confirmation':
-                                    changeErrorValidation('confirmPassword', error.response.data.validationErrors[prop], false)
+                                    changeErrorValidation('confirmPassword', error2.response.data.validationErrors[prop], false)
                                     break;
                                 default:
                                     break;
@@ -285,9 +283,9 @@ const StartJourney = () => {
                         }
                     )
                 }
-                else {
-                    setError(error)
-                }
+                // else {
+                    // setError(error)
+                // }
                 UiEventsDispatch({ event: 'loading', value: false })
             }
             // CreateAccountDispatch({ type: 'nextPage' })
@@ -324,7 +322,7 @@ const StartJourney = () => {
                                     <HandsShakeHeartShape />
                                 </Animated.View>}
                                 {regestir && <Animated.View entering={ZoomIn} exiting={ZoomOut} className="absolute top-[85%] flex-row  justify-center items-center -right-20 py-1 px-3 bg-black rounded-full">
-                                    <Text className=" text-lg text-[#B9FF00] pr-3"> Regester</Text>
+                                    <Text className=" text-lg text-[#B9FF00] pr-3"> Register</Text>
                                     <FontAwesomeIcon icon={['fas', 'thumbs-up']} color='#B9FF00' />
                                 </Animated.View>}
 
@@ -398,7 +396,7 @@ const StartJourney = () => {
 
                         }
                         {
-                            error &&
+                            err &&
                             <Text className=" py-3 bg-red-600 text-white font-black rounded-[10px] text-center">SomeThing Went Wrong</Text>
                         }
                         {

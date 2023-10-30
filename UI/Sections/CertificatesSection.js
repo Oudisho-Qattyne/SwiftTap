@@ -4,19 +4,20 @@ import Separate from '../Separate'
 import Icon from '../Icon.js'
 import AddIcon from '../AddIcon.js'
 import { AppContext } from '../../AppState'
+import Post from '../Items/Post'
 
-const IconsSection = ({ title , items }) => {
-    const { UiState, UiDispatch , AppState } = useContext(AppContext)
-
+const CertificatesSection = ({ title, items }) => {
+    const { UiState, UiDispatch, AppState } = useContext(AppContext)
     return (
-        <View className="w-full flex justify-center items-center py-5">
+        <View className="relative w-full flex justify-center items-center py-20">
             {title == 'flashContacts' ?
-                <Text >Or Direct</Text>            
-            :
+                <Text >Or Direct</Text>
+                :
                 <Separate title={title} />
             }
             <FlatList
-                contentContainerStyle={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', paddingTop: 20 }}
+                style={{ width: '100%' }}
+                contentContainerStyle={{ width: '100%', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', paddingTop: 20 }}
                 data={items}
                 renderItem={item => {
 
@@ -29,15 +30,15 @@ const IconsSection = ({ title , items }) => {
                             }
                         }
                         return (
-                            <Icon item={items.item} />
+                            <Post item={items.item} />
                             // <Text className="text-black">hbsdkhb</Text>
                         )
                     }
                 }}
-                ListFooterComponent={() => UiState.pages.editable && <AddIcon  section={title} />}
+                ListFooterComponent={() => UiState.pages.editable && <AddIcon section={title} />}
             />
         </View>
     )
 }
 
-export default IconsSection
+export default CertificatesSection

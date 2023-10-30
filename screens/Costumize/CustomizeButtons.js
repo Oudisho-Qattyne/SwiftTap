@@ -4,9 +4,9 @@ import { AppContext } from '../../AppState'
 import Hr from '../../UI/Hr'
 import DropDownPicker from 'react-native-dropdown-picker'
 // import BouncyCheckbox from "react-native-bouncy-checkbox";
+import Checkbox from 'expo-checkbox';
 
-const CustomizeButtons = () => {
-    const { AppState, dispatch } = useContext(AppContext)
+const CustomizeButtons = ({themeDispatch , theme}) => {
     const [open, setOpen] = useState(false);
     const [items, setItems] = useState([
         { icon: () => <View className="w-14 h-9 rounded-full border border-1 border-[#bfbfbf]" />, label: 'circle', value: 1 },
@@ -20,27 +20,46 @@ const CustomizeButtons = () => {
             <DropDownPicker
                 itemSeparator={true}
                 open={open}
-                value={AppState.theme.buttons.type}
+                value={theme.theme.buttons.type}
                 items={items}
                 setOpen={setOpen}
                 onSelectItem={(item) => {
                     return (
-                        dispatch({ type: 'setButtonsStyle', prop: 'type', buttonType: item.value })
+                        themeDispatch({ type: 'setButtonsStyle', prop: 'type', value: item.value })
                     )
                 }}
             />
             <View className="flex-row justify-center items-center">
                 <Text className="p-5 text-[#8C8C8C]">Fill : </Text>
-                {/* <BouncyCheckbox
-                    value={AppState.theme.buttons.fill}
+                <Checkbox
+                    value={theme.theme.buttons.fill}
                     size={25}
-                    onPress={(value) => dispatch({ type: 'setButtonsStyle', prop: 'fill', fill: value })}
-                /> */}
+                    onValueChange={(value) => themeDispatch({ type: 'setButtonsStyle', prop: 'fill', value: value })}
+                />
             </View>
 
             <Text className="p-5 text-[#8C8C8C]">Buttons Background Color</Text>
-
-            <FlatList
+            <View className="relative w-full flex flex-row flex-wrap justify-center items-center">
+                    {
+                      theme.textColors.map(item => 
+                        <TouchableOpacity
+                        style={{ 
+                            backgroundColor: item.color,
+                            borderWidth:2,
+                            borderColor:'#bfbfbf' 
+                        }}
+                        onPressOut={() => themeDispatch(
+                            {
+                                type: 'setButtonsStyle',
+                                prop: 'backGroundColor',
+                                value: item.color,
+                            })}
+                        className="w-[35px] h-[35px] rounded-full m-2">
+                    </TouchableOpacity>                        
+                        )  
+                    }
+                </View>
+            {/* <FlatList
                 data={AppState.textColors}
                 scrollEnabled={false}
                 extraData={AppState.textColors}
@@ -63,12 +82,31 @@ const CustomizeButtons = () => {
                             className="w-[35px] h-[35px] rounded-full m-2">
                         </TouchableOpacity>
                     )
-                }} />
+                }} /> */}
             <Hr color='#8C8C8C' height={1} width='100%' />
 
             <Text className="p-5 text-[#8C8C8C]">Buttons Text Color</Text>
-
-            <FlatList
+            <View className="relative w-full flex flex-row flex-wrap justify-center items-center">
+                    {
+                      theme.textColors.map(item => 
+                        <TouchableOpacity
+                        style={{ 
+                            backgroundColor: item.color,
+                            borderWidth:2,
+                            borderColor:'#bfbfbf' 
+                        }}
+                        onPressOut={() => themeDispatch(
+                            {
+                                type: 'setButtonsStyle',
+                                prop: 'textColor',
+                                value: item.color
+                            })}
+                        className="w-[35px] h-[35px] rounded-full m-2">
+                    </TouchableOpacity>                        
+                        )  
+                    }
+                </View>
+            {/* <FlatList
                 data={AppState.textColors}
                 extraData={AppState.textColors}
                 scrollEnabled={false}
@@ -90,7 +128,7 @@ const CustomizeButtons = () => {
                             className="w-[35px] h-[35px] rounded-full m-2">
                         </TouchableOpacity>
                     )
-                }} />
+                }} /> */}
         </View>
     )
 }

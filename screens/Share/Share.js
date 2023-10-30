@@ -26,12 +26,13 @@ const Share = () => {
         },
     ]
   return (
-    <Animated.View entering={SlideInDown} exiting={SlideOutDown}  className='relative w-screen h-1/2 bg-white z-[2] justify-start p-10 '>
+    <Animated.View entering={SlideInDown} exiting={SlideOutDown} className='absolute top-0 pt-5 w-screen h-full bg-white z-[10] rounded-tl-[50px] rounded-tr-[50px] overflow-hidden justify-start items-center px-5 pb-[80px]'  >
       <View className="w-full flex-row justify-center items-center gap-3 pb-10">
                 <FontAwesomeIcon icon={['fas', 'share-from-square']} size={30} color='#0060CD' />
                 <Text className="text-[16px] text-[#0060CD]">Share</Text>
             </View>
             <FlatList
+            style={{width:'100%'}}
             data={Shares}
             renderItem={(item) => {
                 return(

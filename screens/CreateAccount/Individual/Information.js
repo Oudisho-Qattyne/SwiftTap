@@ -32,15 +32,32 @@ const Information = () => {
         { label: 'b', value: 'b' },
     ])
 
-
-    useEffect(() => {
-        API({
+    const fetchIndustries = async () => {
+        const industries = []
+        const { res , err } = await API({
             type: 'industries',
             payload: {
                 UiEventsDispatch: UiEventsDispatch,
                 CreateAccountDispatch: CreateAccountDispatch
             }
         })
+        if(res){
+            for (let i = 0; i < res.length; i++) {
+                let industry = {
+                    label: res[i].name,
+                    value: res[i].id
+                }
+                industries.push(industry)
+            }
+            setIndustry(industries)
+        }
+        if(err){
+            console.log(err);
+        }
+    }
+
+    useEffect(() => {
+        fetchIndustries()
     }, [])
 
 
@@ -169,6 +186,7 @@ const Information = () => {
                             }
                             else {
                                 prevState.information2[inputType].valid = true
+                                prevState.information2[inputType].error = ''
                             }
 
                             break;
@@ -178,6 +196,11 @@ const Information = () => {
                                 prevState.information2[inputType].valid = false
                                 prevState.information2[inputType].error = 'invalid industry'
                                 valid = false
+                            }
+                            else {
+                                prevState.information2[inputType].valid = true
+                                prevState.information2[inputType].error = ''
+
                             }
                             break;
 
@@ -325,7 +348,7 @@ const Information = () => {
                                 }
                             }>
                             {dateSelected ?
-                                <Text className="text-black">{info.information1.birthDate.value.getFullYear()}-{info.information1.birthDate.value.getMonth()}-{info.information1.birthDate.value.getDay()}</Text> : <Text className="text-[#bfbfbf]">Birth Date</Text>}
+                                <Text className="text-black">{info.information1.birthDate.value.getFullYear()}-{info.information1.birthDate.value.getMonth() + 1}-{info.information1.birthDate.value.getDate()}</Text> : <Text className="text-[#bfbfbf]">Birth Date</Text>}
                             <FontAwesomeIcon icon={['fas', 'calendar-days']} color='black' />
                         </TouchableOpacity>
                         {

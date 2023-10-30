@@ -9,12 +9,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import * as ImagePicker from 'expo-image-picker';
 
 const SelectImage = () => {
-    const { CreateAccountState, CreateAccountDispatch } = useContext(AppContext)
-    const [image, setImage] = useState(null)
+    const { CreateAccountState, CreateAccountDispatch , journeyInputFields , journeyDispatch } = useContext(AppContext)
+    const [image, setImage] = useState(journeyInputFields.image)
     const startJourney = () => {
-        CreateAccountDispatch({ type: 'nextPage' })
+        if(image){
+            next()
+            CreateAccountDispatch({ type: 'nextPage' })
+        }
     }
-
+console.log(journeyInputFields.image);
 
     const pickImage = async () => {
         // No permissions request is necessary for launching the image library
@@ -26,11 +29,18 @@ const SelectImage = () => {
         });
 
         if (!result.canceled) {
-            setImage(result.assets[0].uri);
+            setImage(result);
         }
     };
 
-
+    const next = () => {
+        if(image){
+            journeyDispatch({function:'setSection' , section:{
+                image:image
+            }})
+            
+        }
+    }
 
     return (
 
@@ -59,7 +69,7 @@ const SelectImage = () => {
             <Text className="w-full text-[#1E1E1E] font-[montserrat] font-black text-center text-[18px] py-5">Your Image</Text>
             <TouchableOpacity onPress={pickImage}>
                 {image ?
-                    <Image source={{ uri: image }} className="w-[164px] h-[164px] rounded-full" /> :
+                    <Image source={{ uri: image.assets[0].uri }} className="w-[164px] h-[164px] rounded-full" /> :
                     <View style={{ borderStyle: 'dashed' }} className="w-[164px] h-[164px] rounded-full border-dashed border-2 border-[#bfbfbf] justify-center items-center">
                         <FontAwesomeIcon color='#bfbfbf' size={30} icon={['fas' , 'plus']}/>
                     </View>

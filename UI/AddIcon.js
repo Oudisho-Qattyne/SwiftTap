@@ -4,9 +4,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { AppContext } from '../AppState'
 import Animated, { BounceIn, BounceOut } from 'react-native-reanimated'
 
-const AddIcon = ({ toggle , section}) => {
+const AddIcon = ({ section}) => {
     const { AppState , dispatch , UiDispatch  } = useContext(AppContext)
-    const icons = AppState.theme.icons
+    const icons = AppState.profile.theme.icons
     let iconStyle = {}
     let svgStyle = {}
     const textStyle = { color: icons.textColor }
@@ -35,7 +35,7 @@ const AddIcon = ({ toggle , section}) => {
     }
     return (
         <View className="p-5 pb-10">
-            <TouchableOpacity style={iconStyle} title='lasd' onPress={() => UiDispatch({ toggle: toggle , section : section})} className="flex w-[50px] h-[50px] rounded-full justify-center items-center  p-4">
+            <TouchableOpacity style={iconStyle} title='lasd' onPress={() => UiDispatch({ function: 'toggle' , section : section})} className="flex w-[50px] h-[50px] rounded-full justify-center items-center  p-4">
                 <FontAwesomeIcon color={svgStyle.color} size={30} icon={['fas', 'plus']} />
             </TouchableOpacity>
         </View>
