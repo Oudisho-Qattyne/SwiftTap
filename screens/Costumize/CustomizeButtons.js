@@ -7,6 +7,8 @@ import DropDownPicker from 'react-native-dropdown-picker'
 import Checkbox from 'expo-checkbox';
 
 const CustomizeButtons = ({themeDispatch , theme}) => {
+    const { AppState, dispatch, UiState, UiDispatch } = useContext(AppContext)
+
     const [open, setOpen] = useState(false);
     const [items, setItems] = useState([
         { icon: () => <View className="w-14 h-9 rounded-full border border-1 border-[#bfbfbf]" />, label: 'circle', value: 1 },
@@ -20,35 +22,35 @@ const CustomizeButtons = ({themeDispatch , theme}) => {
             <DropDownPicker
                 itemSeparator={true}
                 open={open}
-                value={theme.theme.buttons.type}
+                value={AppState.profile.theme.buttons.type}
                 items={items}
                 setOpen={setOpen}
                 onSelectItem={(item) => {
                     return (
-                        themeDispatch({ type: 'setButtonsStyle', prop: 'type', value: item.value })
+                        dispatch({ type: 'setButtonsStyle', prop: 'type', value: item.value })
                     )
                 }}
             />
             <View className="flex-row justify-center items-center">
                 <Text className="p-5 text-[#8C8C8C]">Fill : </Text>
                 <Checkbox
-                    value={theme.theme.buttons.fill}
+                    value={AppState.profile.theme.buttons.fill}
                     size={25}
-                    onValueChange={(value) => themeDispatch({ type: 'setButtonsStyle', prop: 'fill', value: value })}
+                    onValueChange={(value) => dispatch({ type: 'setButtonsStyle', prop: 'fill', value: value })}
                 />
             </View>
 
             <Text className="p-5 text-[#8C8C8C]">Buttons Background Color</Text>
             <View className="relative w-full flex flex-row flex-wrap justify-center items-center">
                     {
-                      theme.textColors.map(item => 
+                      AppState.textColors.map(item => 
                         <TouchableOpacity
                         style={{ 
                             backgroundColor: item.color,
                             borderWidth:2,
                             borderColor:'#bfbfbf' 
                         }}
-                        onPressOut={() => themeDispatch(
+                        onPressOut={() => dispatch(
                             {
                                 type: 'setButtonsStyle',
                                 prop: 'backGroundColor',
@@ -88,14 +90,14 @@ const CustomizeButtons = ({themeDispatch , theme}) => {
             <Text className="p-5 text-[#8C8C8C]">Buttons Text Color</Text>
             <View className="relative w-full flex flex-row flex-wrap justify-center items-center">
                     {
-                      theme.textColors.map(item => 
+                      AppState.textColors.map(item => 
                         <TouchableOpacity
                         style={{ 
                             backgroundColor: item.color,
                             borderWidth:2,
                             borderColor:'#bfbfbf' 
                         }}
-                        onPressOut={() => themeDispatch(
+                        onPressOut={() => dispatch(
                             {
                                 type: 'setButtonsStyle',
                                 prop: 'textColor',

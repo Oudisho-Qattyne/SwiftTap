@@ -6,12 +6,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import TextField from './TextField'
 import ImageField from './ImageField'
 import IconField from './IconField'
+import FileField from './FileField'
 
 const Field = ({ item, drag, isActive }) => {
     const [fieldName, setFieldName] = useState('')
     const [edit, setEdit] = useState(false)
     const [items, setItems] = useState(item)
-
 
     const setName = () => {
         item.setFieldName(item.fieldId , fieldName)
@@ -20,7 +20,7 @@ const Field = ({ item, drag, isActive }) => {
             fieldName: fieldName
         }))
     }
-
+// console.log(item.contents[0].contentValue.slice(0,60));
     const onChange = (contentId, value) => {
         let contents = [...items.contents]
         const contentIndex = contents.findIndex(content => content.contentId == contentId)
@@ -49,6 +49,10 @@ const Field = ({ item, drag, isActive }) => {
                     // <Text>jkasdkjnasdkj</Text>
                     <IconField key={content.contentId} id={content.contentId} edit={edit} value={content.contentValue} changeValue={onChange} setSelectIcon={item.setSelectIcon} />
                 )
+                case 'file':
+                    return(
+                        <FileField key={content.contentId} id={content.contentId} edit={edit} value={content.contentValue} changeValue={onChange} setSelectIcon={item.setSelectIcon} />
+                    )
 
             default:
                 break;
@@ -78,7 +82,7 @@ const Field = ({ item, drag, isActive }) => {
                             <Text className="text-black">
                                 {items.fieldName}
                             </Text>
-                            <View className='relative '>
+                            <View className='relative h-fit '>
                                 {fields}
                             </View>
                             <TouchableOpacity onPressOut={() => saveChanges()} className="pr-3">

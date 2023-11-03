@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const swifttapAxios = axios.create({
-    baseURL:'http://phplaravel-1142829-3976094.cloudwaysapps.com/api/v1'
+    baseURL:'https://phplaravel-1142829-3976094.cloudwaysapps.com/api/v1'
 })
 
 

@@ -66,6 +66,7 @@ const setFieldName = (fieldId , fieldName) => {
             fieldId: newId,
             fieldName: ''
         }
+
         setItems(prev => {
             const newItems = [...prev]
             newItems.push(newField)

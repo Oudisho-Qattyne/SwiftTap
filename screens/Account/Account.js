@@ -32,9 +32,34 @@ import CertificatesSection from '../../UI/Sections/CertificatesSection'
 import Contacts from '../../UI/Sections/Contacts'
 
 
-const Account = ({ setProfile }) => {
+const Account = ({ setProfile, chosenTypeId, profile }) => {
     const { AppState, dispatch, UiState, CreateAccountDispatch, UiEventsDispatch, UiDispatch } = useContext(AppContext)
     const [loading, setLoading] = useState(false)
+
+    const fetchProfile = async (id) => {
+        const { res, err } = await API({
+            type: 'profile',
+            payload: {
+                CreateAccountDispatch: CreateAccountDispatch,
+                UiEventsDispatch: UiEventsDispatch,
+                type_id: chosenTypeId,
+                profile: profile
+            }
+        })
+        if (res.status == 200) {
+            await dispatch({ type: 'setState', key: 'profile', value: res.data.data })
+            let sections = {}
+            res.data.data.profile.sections.map(section => {
+                sections[section.sectionName] = false
+            })
+            UiDispatch({ function: 'setEditInformation', sections: sections })
+        }
+        else{
+            console.log(err);
+        }
+    }
+
+
     // const [profile,setProfile] = useState(AppState.profiles.profiles[0].id)
     // const fetchProfile = async () => {
     //     setLoading(true)
@@ -54,11 +79,7 @@ const Account = ({ setProfile }) => {
     //     // fetchProfile()
     // } , [])
     useEffect(() => {
-        let sections = {}
-        AppState.profile.sections.map(section => {
-            sections[section.sectionName] = false
-        })
-        UiDispatch({ function: 'setEditInformation', sections: sections })
+        fetchProfile()
     }, [])
 
     return (
@@ -67,11 +88,11 @@ const Account = ({ setProfile }) => {
 
             <View className="relative flex flex-col justify-center items-center">
                 <Animated.View
-                    className="relative w-full h-auto z-10 rounded-tl-[50px] rounded-tr-[50px] overflow-hidden bg-white"
+                    className="relative w-full h-auto z-10 rounded-tl-[50px] rounded-tr-[50px] overflow-hidden bg-white pb-20"
                     entering={SlideInDown}
                     exiting={SlideOutDown}
                 >
-                    <Controler setProfile={setProfile} />
+                    <Controler setProfile={setProfile} profile={profile} />
                     <View className="w-screen h-full  ">
                         <ScrollView>
                             <UserImage />

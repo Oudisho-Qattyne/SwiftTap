@@ -3,7 +3,9 @@ import React from 'react'
 
 const Post = ({ item }) => {
   const image = item.contents.filter(content => content.contentType == 'image')[0].contentValue
+  const id = item.contents.filter(content => content.contentType == 'image')[0].contentId
   const text = item.contents.filter(content => content.contentType == 'text')[0].contentValue
+  console.log(image);
   return (
     <View className='relative w-fit h-fit rounded-[20px] flex flex-col justify-start items-center py-5 px-4 overflow-hidden'>
       {

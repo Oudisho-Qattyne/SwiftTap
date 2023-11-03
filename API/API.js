@@ -159,6 +159,28 @@ const API = async ({ type, payload }) => {
   }
 
 
+  const updateProfile = async () => {
+    console.log('updateProfile');
+    console.log(payload.profile , payload.body);
+    let res = {}
+    let err = {}
+    const access_token = await SecureStore.getItemAsync('accessToken')
+    try {
+      const response = await swifttapAxios.put(`/profiles/${payload.profile}`, payload.body, {
+        headers: {
+          Authorization : `Bearer ${access_token}`
+        }
+      })
+      res = response
+    } catch (error) {
+      err = error
+    }
+    payload.UiEventsDispatch({ event: 'loading', value: false })
+    return({res,err})
+
+  }
+
+
   const sendInformations = async () => {
     console.log('send informations');
     let res = {}
@@ -171,13 +193,13 @@ const API = async ({ type, payload }) => {
     let formData = new FormData()
     formData.append('image', { uri: localUri, name: filename, type });
     try {
-      const response = await swifttapAxios.post('/informations' , formData , {
+      const response = await swifttapAxios.post('/informations', formData, {
         headers: {
           'Accept': 'application/json',
           'Authorization': `Bearer ${access_token}`,
           'Content-Type': 'multipart/form-data'
         },
-        params:{
+        params: {
           first_name: payload.first_name,
           last_name: payload.last_name,
           gender: payload.gender,
@@ -221,8 +243,8 @@ const API = async ({ type, payload }) => {
           'Accept': 'application/json',
           'Authorization': `Bearer ${access_token}`,
         },
-        params:{
-          type_id:payload.type_id
+        params: {
+          type_id: payload.type_id
         }
       })
       res = response
@@ -249,13 +271,12 @@ const API = async ({ type, payload }) => {
           'Accept': 'application/json',
           'Authorization': `Bearer ${access_token}`,
         },
-        params:{
-          type_id:payload.type_id
+        params: {
+          type_id: payload.type_id
         }
       })
       res = response
-    } catch (error) 
-    {
+    } catch (error) {
       err = error
     }
     payload.UiEventsDispatch({ event: 'loading', value: false })
@@ -306,6 +327,10 @@ const API = async ({ type, payload }) => {
         return (
           await profile()
         )
+        case 'updateProfile':
+          return(
+            await updateProfile()
+            )
       default:
         break;
     }

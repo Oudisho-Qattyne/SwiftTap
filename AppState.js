@@ -17,14 +17,18 @@ export const StateProvider = ({ children }) => {
         return (
             {
                 ...state,
-                theme: {
-                    ...state.profile.theme,
-                    textFont: action.fontFamily
+                profile:{
+                    ...state.profile,
+                    theme: {
+                        ...state.profile.theme,
+                        textFont: action.fontFamily
+                    }
                 }
             }
         )
     }
     const setTextColor = (state, action) => {
+        console.log(action.textColor);
         return (
             {
                 ...state,
@@ -216,144 +220,152 @@ export const StateProvider = ({ children }) => {
         }
     }
     const setIconStyle = (state, action) => {
-        switch (action.prop) {
-            case 'color':
-                return (
-                    {
-                        ...state,
-                        profile: {
-                            ...state.profile,
-                            theme: {
-                                ...state.profile.theme,
-                                icons: {
-                                    ...state.profile.theme.icons,
-                                    color: action.color
-                                }
-                            },
-                        }
-                    }
-                )
-            case 'textColor':
-                return (
-                    {
-                        ...state,
-                        profile: {
-                            ...state.profile,
-                            theme: {
-                                ...state.profile.theme,
-                                icons: {
-                                    ...state.profile.theme.icons,
-                                    textColor: action.textColor
-                                }
-                            },
-                        }
-                    }
-                )
-            case 'fill':
-                return (
-                    {
-                        ...state,
-                        profile: {
-                            ...state.profile,
-                            theme: {
-                                ...state.profile.theme,
-                                icons: {
-                                    ...state.profile.theme.icons,
-                                    fill: action.fill
-                                }
-                            },
-                        }
-                    }
-                )
-            case 'type':
-                return (
-                    {
-                        ...state,
-                        profile: {
-                            ...state.profile,
-                            theme: {
-                                ...state.profile.theme,
-                                icons: {
-                                    ...state.profile.theme.icons,
-                                    type: action.iconType
-                                }
-                            },
-                        }
-                    }
-                )
-            default:
-                break;
-        }
+        const newState = {...state}
+        newState.profile.theme.icons[action.prop] = action.value
+
+        return(newState)
+        // switch (action.prop) {
+        //     case 'color':
+        //         return (
+        //             {
+        //                 ...state,
+        //                 profile: {
+        //                     ...state.profile,
+        //                     theme: {
+        //                         ...state.profile.theme,
+        //                         icons: {
+        //                             ...state.profile.theme.icons,
+        //                             color: action.color
+        //                         }
+        //                     },
+        //                 }
+        //             }
+        //         )
+        //     case 'textColor':
+        //         return (
+        //             {
+        //                 ...state,
+        //                 profile: {
+        //                     ...state.profile,
+        //                     theme: {
+        //                         ...state.profile.theme,
+        //                         icons: {
+        //                             ...state.profile.theme.icons,
+        //                             textColor: action.textColor
+        //                         }
+        //                     },
+        //                 }
+        //             }
+        //         )
+        //     case 'fill':
+        //         return (
+        //             {
+        //                 ...state,
+        //                 profile: {
+        //                     ...state.profile,
+        //                     theme: {
+        //                         ...state.profile.theme,
+        //                         icons: {
+        //                             ...state.profile.theme.icons,
+        //                             fill: action.fill
+        //                         }
+        //                     },
+        //                 }
+        //             }
+        //         )
+        //     case 'type':
+        //         return (
+        //             {
+        //                 ...state,
+        //                 profile: {
+        //                     ...state.profile,
+        //                     theme: {
+        //                         ...state.profile.theme,
+        //                         icons: {
+        //                             ...state.profile.theme.icons,
+        //                             type: action.iconType
+        //                         }
+        //                     },
+        //                 }
+        //             }
+        //         )
+        //     default:
+        //         break;
+        // }
     }
     const setButtonsStyle = (state, action) => {
-        switch (action.prop) {
-            case 'type':
-                return (
-                    {
-                        ...state,
-                        profile: {
-                            ...state.profile,
-                            theme: {
-                                ...state.profile.theme,
-                                buttons: {
-                                    ...state.profile.theme.buttons,
-                                    type: action.buttonType
-                                }
-                            }
-                        }
-                    }
-                )
-            case 'backGroundColor':
-                return (
-                    {
-                        ...state,
-                        profile: {
-                            ...state.profile,
-                            theme: {
-                                ...state.profile.theme,
-                                buttons: {
-                                    ...state.profile.theme.buttons,
-                                    backGroundColor: action.backGroundColor
-                                }
-                            }
-                        }
-                    }
-                )
-            case 'textColor':
-                return (
-                    {
-                        ...state,
-                        profile: {
-                            ...state.profile,
-                            theme: {
-                                ...state.profile.theme,
-                                buttons: {
-                                    ...state.profile.theme.buttons,
-                                    textColor: action.textColor
-                                }
-                            }
-                        }
-                    }
-                )
-            case 'fill':
-                return (
-                    {
-                        ...state,
-                        profile: {
-                            ...state.profile,
-                            theme: {
-                                ...state.profile.theme,
-                                buttons: {
-                                    ...state.profile.theme.buttons,
-                                    fill: action.fill
-                                }
-                            }
-                        }
-                    }
-                )
-            default:
-                break;
-        }
+        const newState = {...state}
+        newState.profile.theme.buttons[action.prop] = action.value
+        
+        return(newState)
+        // switch (action.prop) {
+        //     case 'type':
+        //         return (
+        //             {
+        //                 ...state,
+        //                 profile: {
+        //                     ...state.profile,
+        //                     theme: {
+        //                         ...state.profile.theme,
+        //                         buttons: {
+        //                             ...state.profile.theme.buttons,
+        //                             type: action.buttonType
+        //                         }
+        //                     }
+        //                 }
+        //             }
+        //         )
+        //     case 'backGroundColor':
+        //         return (
+        //             {
+        //                 ...state,
+        //                 profile: {
+        //                     ...state.profile,
+        //                     theme: {
+        //                         ...state.profile.theme,
+        //                         buttons: {
+        //                             ...state.profile.theme.buttons,
+        //                             backGroundColor: action.backGroundColor
+        //                         }
+        //                     }
+        //                 }
+        //             }
+        //         )
+        //     case 'textColor':
+        //         return (
+        //             {
+        //                 ...state,
+        //                 profile: {
+        //                     ...state.profile,
+        //                     theme: {
+        //                         ...state.profile.theme,
+        //                         buttons: {
+        //                             ...state.profile.theme.buttons,
+        //                             textColor: action.textColor
+        //                         }
+        //                     }
+        //                 }
+        //             }
+        //         )
+        //     case 'fill':
+        //         return (
+        //             {
+        //                 ...state,
+        //                 profile: {
+        //                     ...state.profile,
+        //                     theme: {
+        //                         ...state.profile.theme,
+        //                         buttons: {
+        //                             ...state.profile.theme.buttons,
+        //                             fill: action.fill
+        //                         }
+        //                     }
+        //                 }
+        //             }
+        //         )
+        //     default:
+        //         break;
+        // }
     }
     const setLogedIn = (state, action) => {
         return (
@@ -374,6 +386,15 @@ export const StateProvider = ({ children }) => {
         return (newState)
     }
 
+    const setProfileImage = (state, action) => {
+        const newState = { ...state }
+
+        newState.profile = {
+            ...newState.profile,
+            profileImage: action.profileImage
+        }
+        return (newState)
+    }
     const reducer = (state, action) => {
 
         switch (action.type) {
@@ -409,169 +430,205 @@ export const StateProvider = ({ children }) => {
                 return (
                     setInformation(state, action)
                 )
+
+            case 'setProfileImage':
+                return (
+                    setProfileImage(state, action)
+                )
         }
     }
 
     const [AppState, dispatch] = useReducer(reducer,
         {
             profile: {
-                "profileId": 1,
-                "profileName": "personal",
-                "profileImage": "http://phplaravel-1142829-3976094.cloudwaysapps.com/storage/images/profiles/img_65392a36589b4.png",
-                "theme": {
-                    "customizeable": 1,
-                    "textColor": "#a72e12",
-                    "textFont": "#53b125",
-                    "profielBorderColor": "#e88aa2",
-                    "backGround": {
-                        "type": 1,
-                        "color": "#afec6c"
-                    },
-                    "buttons": {
-                        "type": 1,
-                        "backGroundColor": "#ffffff",
-                        "textColor": "#780016",
-                        "fill": true
-                    },
-                    "icons": {
-                        "color": "#780016",
-                        "textColor": "#780016",
-                        "fill": true,
-                        "type": 1
-                    }
-                },
-                "sections": [
-                    {
-                        "sectionId": 1,
-                        "sectionName": "Main Info",
-                        "sectionType": "headings",
-                        "fields": [
-                            {
-                                "fieldId": 1,
-                                "fieldName": "Name",
-                                "contents": [
-                                    {
-                                        "contentId": 1,
-                                        "contentValue": "",
-                                        "contentType": "text",
-                                        "isActive": true
-                                    }
-                                ]
-                            },
-                            {
-                                "fieldId": 2,
-                                "fieldName": "Bio",
-                                "contents": [
-                                    {
-                                        "contentId": 1,
-                                        "contentValue": "",
-                                        "contentType": "text",
-                                        "isActive": true
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        "sectionId": 2,
-                        "sectionName": "Contacts",
-                        "sectionType": "contact",
-                        "fields": [
-                            {
-                                "fieldId": 3,
-                                "fieldName": "Whatsapp",
-                                "contents": [
-                                    {
-                                        "contentId": 1,
-                                        "contentValue": "",
-                                        "contentType": "text",
-                                        "isActive": true
-                                    },
-                                ]
-                            },
-                            {
-                                "fieldId": 4,
-                                "fieldName": "telegram",
-                                "contents": [
-                                    {
-                                        "contentId": 1,
-                                        "contentValue": "",
-                                        "contentType": "text",
-                                        "isActive": true
-                                    },
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        "sectionId": 2,
-                        "sectionName": "Social & links",
-                        "sectionType": "icons",
-                        "fields": [
-                            {
-                                "fieldId": 3,
-                                "fieldName": "Whatsapp",
-                                "contents": [
-                                    {
-                                        "contentId": 1,
-                                        "contentValue": "",
-                                        "contentType": "text",
-                                        "isActive": true
-                                    },
-                                    {
-                                        "contentId": 2,
-                                        "contentValue": "fab|whatsapp",
-                                        "contentType": "icon",
-                                        "isActive": true
-                                    }
-                                ]
-                            },
-                            {
-                                "fieldId": 4,
-                                "fieldName": "telegram",
-                                "contents": [
-                                    {
-                                        "contentId": 1,
-                                        "contentValue": "",
-                                        "contentType": "text",
-                                        "isActive": true
-                                    },
-                                    {
-                                        "contentId": 2,
-                                        "contentValue": "fab|telegram",
-                                        "contentType": "icon",
-                                        "isActive": true
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        "sectionId": 3,
-                        "sectionName": "Certificates",
-                        "sectionType": "posts",
-                        "fields": [
-                            {
-                                "fieldId": 5,
-                                "fieldName": "Education",
-                                "contents": [
-                                    {
-                                        "contentId": 1,
-                                        "contentValue": "",
-                                        "contentType": "text",
-                                        "isActive": true
-                                    },
-                                    {
-                                        "contentId": 2,
-                                        "contentValue": "",
-                                        "contentType": "image",
-                                        "isActive": true
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                ]
+                // "profileId": 1,
+                // "profileName": "personal",
+                // "profileImage": "http://phplaravel-1142829-3976094.cloudwaysapps.com/storage/images/profiles/img_65392a36589b4.png",
+                // "theme": {
+                //     "customizeable": 1,
+                //     "textColor": "#a72e12",
+                //     "textFont": "#53b125",
+                //     "profielBorderColor": "#e88aa2",
+                //     "backGround": {
+                //         "type": 1,
+                //         "color": "#afec6c"
+                //     },
+                //     "buttons": {
+                //         "type": 1,
+                //         "backGroundColor": "#ffffff",
+                //         "textColor": "#780016",
+                //         "fill": true
+                //     },
+                //     "icons": {
+                //         "color": "#780016",
+                //         "textColor": "#780016",
+                //         "fill": true,
+                //         "type": 1
+                //     }
+                // },
+                // "sections": [
+                //     {
+                //         "sectionId": 1,
+                //         "sectionName": "Main Info",
+                //         "sectionType": "headings",
+                //         "fields": [
+                //             {
+                //                 "fieldId": 1,
+                //                 "fieldName": "Name",
+                //                 "contents": [
+                //                     {
+                //                         "contentId": 1,
+                //                         "contentValue": "Oudisho Qattyne",
+                //                         "contentType": "text",
+                //                         "isActive": true
+                //                     }
+                //                 ]
+                //             },
+                //             {
+                //                 "fieldId": 2,
+                //                 "fieldName": "Bio",
+                //                 "contents": [
+                //                     {
+                //                         "contentId": 1,
+                //                         "contentValue": "كسار راسك",
+                //                         "contentType": "text",
+                //                         "isActive": true
+                //                     }
+                //                 ]
+                //             }
+                //         ]
+                //     },
+                //     {
+                //         "sectionId": 2,
+                //         "sectionName": "Contacts",
+                //         "sectionType": "contact",
+                //         "fields": [
+                //             {
+                //                 "fieldId": 3,
+                //                 "fieldName": "Whatsapp",
+                //                 "contents": [
+                //                     {
+                //                         "contentId": 1,
+                //                         "contentValue": "",
+                //                         "contentType": "text",
+                //                         "isActive": true
+                //                     },
+                //                 ]
+                //             },
+                //             {
+                //                 "fieldId": 4,
+                //                 "fieldName": "telegram",
+                //                 "contents": [
+                //                     {
+                //                         "contentId": 1,
+                //                         "contentValue": "",
+                //                         "contentType": "text",
+                //                         "isActive": true
+                //                     },
+                //                 ]
+                //             }
+                //         ]
+                //     },
+                //     {
+                //         "sectionId": 2,
+                //         "sectionName": "Social & links",
+                //         "sectionType": "icons",
+                //         "fields": [
+                //             {
+                //                 "fieldId": 3,
+                //                 "fieldName": "Whatsapp",
+                //                 "contents": [
+                //                     {
+                //                         "contentId": 1,
+                //                         "contentValue": "",
+                //                         "contentType": "text",
+                //                         "isActive": true
+                //                     },
+                //                     {
+                //                         "contentId": 2,
+                //                         "contentValue": "fab|whatsapp",
+                //                         "contentType": "icon",
+                //                         "isActive": true
+                //                     }
+                //                 ]
+                //             },
+                //             {
+                //                 "fieldId": 4,
+                //                 "fieldName": "telegram",
+                //                 "contents": [
+                //                     {
+                //                         "contentId": 1,
+                //                         "contentValue": "",
+                //                         "contentType": "text",
+                //                         "isActive": true
+                //                     },
+                //                     {
+                //                         "contentId": 2,
+                //                         "contentValue": "fab|telegram",
+                //                         "contentType": "icon",
+                //                         "isActive": true
+                //                     }
+                //                 ]
+                //             }
+                //         ]
+                //     },
+                //     {
+                //         "sectionId": 3,
+                //         "sectionName": "Certificates",
+                //         "sectionType": "posts",
+                //         "fields": [
+                //             {
+                //                 "fieldId": 5,
+                //                 "fieldName": "Education",
+                //                 "contents": [
+                //                     {
+                //                         "contentId": 1,
+                //                         "contentValue": "",
+                //                         "contentType": "text",
+                //                         "isActive": true
+                //                     },
+                //                     {
+                //                         "contentId": 2,
+                //                         "contentValue": "",
+                //                         "contentType": "image",
+                //                         "isActive": true
+                //                     }
+                //                 ]
+                //             }
+                //         ]
+                //     },
+                //     {
+                //         "sectionId": 4,
+                //         "sectionName": "documents",
+                //         "sectionType": "icons",
+                //         "fields": [
+                //             {
+                //                 "fieldId": 7,
+                //                 "fieldName": "Education",
+                //                 "contents": [
+                //                     {
+                //                         "contentId": 1,
+                //                         "contentValue": "",
+                //                         "contentType": "text",
+                //                         "isActive": true
+                //                     },
+                //                     {
+                //                         "contentId": 3,
+                //                         "contentValue": "image|http://phplaravel-1142829-3976094.cloudwaysapps.com/storage/images/profiles/img_65392a36589b4.png",
+                //                         "contentType": "icon",
+                //                         "isActive": true
+                //                     },
+                //                     {
+                //                         "contentId": 2,
+                //                         "contentValue": "",
+                //                         "contentType": "file",
+                //                         "isActive": true
+                //                     }
+                //                 ]
+                //             }
+                //         ]
+                //     }
+                // ]
             },
             buttonsTypes: [
                 {
@@ -723,7 +780,7 @@ export const StateProvider = ({ children }) => {
             case 'togglePages':
 
                 Object.keys(newState.pages).map(page => {
-                    if(page != 'editable'){
+                    if (page != 'editable' && page!=action.page) {
                         newState.pages[page] = false
                     }
                 })
@@ -1011,7 +1068,7 @@ export const StateProvider = ({ children }) => {
         {
             loading: false,
             error: false,
-            logedIn: false,
+            logedIn: false ,
         }
     )
 

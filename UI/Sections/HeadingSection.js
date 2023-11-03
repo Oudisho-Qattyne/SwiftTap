@@ -10,7 +10,7 @@ const HeadingSection = ({ items }) => {
     }
     // console.log(AppState.profile.sections);
     let Headings = items.map(item => {
-        if(item.contents[0].isActive){
+        if(item.isActive){
             switch (item.fieldName) {
                 case 'Name':
                     return(

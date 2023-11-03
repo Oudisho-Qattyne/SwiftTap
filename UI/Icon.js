@@ -6,6 +6,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons'
 import React, { useContext } from 'react'
 import { AppContext } from '../AppState'
 import Animated, { BounceIn } from 'react-native-reanimated'
+import { iconName } from '@fortawesome/free-solid-svg-icons/faBell'
 
 const Icon = ({ item }) => {
     const { AppState, dispatch, UiState, UiDispatch } = useContext(AppContext)
@@ -16,6 +17,7 @@ const Icon = ({ item }) => {
         color: icons.textColor,
         fontFamily: AppState.profile.theme.textFont
     }
+
     if (icons.fill) {
         iconStyle = {
             borderWidth: 1,
@@ -40,11 +42,12 @@ const Icon = ({ item }) => {
     let finalIcon = null 
     if(iconContent.length > 0){
         const iconName = iconContent[0].contentValue.split('|')
+        
         if(iconName[0] == 'fas' || iconName[0] == 'fab'){
             finalIcon = <FontAwesomeIcon color={svgStyle.color} size={30} icon={iconName} />
         }
         else if(iconName[0] == 'image'){
-            finalIcon = <Image source={{uri:iconName[1]}} className="text-centet text-xl font-black" style={{color:svgStyle.color}}/>
+            finalIcon = <Image source={{uri:iconName[1]}} className="relative w-[50px] h-[50px] z-10" style={{color:svgStyle.color}}/>
         }
     }
     else{
@@ -60,7 +63,7 @@ const Icon = ({ item }) => {
                     </TouchableOpacity>
                 </Animated.View>
             } */}
-            <TouchableOpacity style={iconStyle} disabled={UiState.pages.editable} className="w-[50px] h-[50px] flex justify-center items-center z-10 ">
+            <TouchableOpacity style={iconStyle} disabled={UiState.pages.editable} className="w-[50px] h-[50px] flex justify-center items-center z-10 overflow-hidden">
                 {finalIcon}
             </TouchableOpacity>
             <Text style={textStyle} className="pt-4 "> {item.fieldName}</Text>

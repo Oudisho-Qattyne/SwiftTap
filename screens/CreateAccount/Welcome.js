@@ -9,9 +9,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import Input from '../../UI/Input'
 import swifttapAxios from '../../axios/SwftTapAxios'
+import * as SecureStore from 'expo-secure-store';
+import API from '../../API/API'
+
 
 const Welcome = () => {
-    const { CreateAccountState, CreateAccountDispatch , UiEventsDispatch  } = useContext(AppContext)
+    const { CreateAccountState,dispatch, CreateAccountDispatch , UiEventsDispatch  } = useContext(AppContext)
     const [logIn, setLogIn] = useState(false)
     const [personInfo, setPersonInfo] = useState(
         {
@@ -94,7 +97,20 @@ const Welcome = () => {
         return (newState)
     }
 
-    
+    const fetchProfiles = async () => {
+        const {res , err } = await API({
+            type: 'profiles',
+                payload: {
+                    CreateAccountDispatch: CreateAccountDispatch,
+                    UiEventsDispatch: UiEventsDispatch,
+                }
+        })
+        if(res?.status==200){
+            await dispatch({type:'setState' , key:'profiles' , value:res.data.data})
+            await UiEventsDispatch({event:'logedIn' , value:true})
+        }
+    }
+
     const login = async () => {
         if (checkValidation()) {
             try {
@@ -117,12 +133,15 @@ const Welcome = () => {
                 // setRes(res.data)
                 if(res.status){
                     console.log(res);
-                    // console.log(res.data);
-                    // await save('accessToken', res.data.access_token)
-                    // await save('refreshToken', res.data.refresh_token)
-                    // await save('expiresIn', JSON.stringify(parseInt(Date.now() / 1000) + res.data.expires_in - 60))
+                    console.log(res.data);
+                    await save('accessToken', res.data.access_token)
+                    await save('refreshToken', res.data.refresh_token)
+                    await save('expiresIn', JSON.stringify(parseInt(Date.now() / 1000) + res.data.expires_in - 60))
+                    await fetchProfiles()
                     UiEventsDispatch({ event: 'loading', value: false })
                 }
+
+
                 // await save('expiresIn','1697013539' )
                 UiEventsDispatch({ event: 'logedIn', value: true })
             }

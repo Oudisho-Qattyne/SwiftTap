@@ -9,6 +9,7 @@ import Account from '../Account/Account'
 import HeaderTop from '../../UI/HeaderTop'
 
 const Profiles = () => {
+
     const { AppState, CreateAccountDispatch, UiEventsDispatch , dispatch } = useContext(AppContext)
     const [types, setTypes] = useState(AppState.profiles.types)
     // const [types, setTypes] = useState(
@@ -23,6 +24,8 @@ const Profiles = () => {
     // const [chosenTypeId, setChosesnTypeId] = useState(1)
     const [profiles, setProfiles] = useState([])
     const [profile, setProfile] = useState(null)
+
+
     const fetchProfiles = async () => {
         const { res, err } = await API({
             type: 'profiles',
@@ -36,6 +39,8 @@ const Profiles = () => {
             setProfiles(res.data.data.profiles)
         }
     }
+
+
     const fetchProfile = async (id) => {
         const { res, err } = await API({
             type: 'profile',
@@ -52,6 +57,7 @@ const Profiles = () => {
         }
         console.log(err);
     }
+
     useEffect(() => {
         fetchProfiles()
     }, [chosenTypeId])
@@ -93,7 +99,7 @@ const Profiles = () => {
             </ScrollView>
             {
                 profile &&
-                <Account setProfile={setProfile} />
+                <Account profile={profile} chosenTypeId={chosenTypeId} setProfile={setProfile} />
             }
         </View>
     )

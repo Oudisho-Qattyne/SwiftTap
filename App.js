@@ -21,6 +21,7 @@ function App() {
   library.add(fas)
   const [fontsLoaded, fontError] = useFonts({
     'amaranth': require('./assets/fonts/amaranth.ttf'),
+    'roboto': require('./assets/fonts/roboto.ttf'),
     'montserrat': require('./assets/fonts/montserrat.ttf'),
     'palatino-linotype': require('./assets/fonts/palatino-linotype.ttf'),
     'museo-moderno': require('./assets/fonts/museo-moderno.ttf'),
@@ -40,7 +41,7 @@ function App() {
 
     <StateProvider>
       <StatusBar/>
-      <View className="w-screen h-full flex justify-center items-center">
+      <View className="w-screen h-full flex justify-center items-center" onLayout={onLayoutRootView}>
         {/* <NavigationContainer> */}
         <Layout />
         {/* <View>

@@ -21,7 +21,7 @@ const CertificatesSection = ({ title, items }) => {
                 data={items}
                 renderItem={item => {
 
-                    if (item.item.contents[0].isActive) {
+                    if (item.item.isActive) {
                         let items = {
                             ...item,
                             item: {

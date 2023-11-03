@@ -3,29 +3,40 @@ import React, { useContext } from 'react'
 import { AppContext } from '../../AppState'
 import Hr from '../../UI/Hr'
 
-const CustomizeText = ({themeDispatch , theme}) => {
+const CustomizeText = () => {
+    const { AppState, dispatch, UiState, UiDispatch } = useContext(AppContext)
+    console.log(AppState.profile.theme);
 
     return (
         <View className="w-full h-auto justify-center items-center">
             <Text className="w-full text-center text-3xl text-[#bfbfbf] py-5">Customize Text</Text>
             <Text className="p-5 text-[#8C8C8C]">Fonts</Text>
             <View className="relative w-full flex flex-row flex-wrap justify-center items-center">
-                {theme.fonts.map(item => 
+                {AppState.fonts.map(item => 
                         <TouchableOpacity
                         style={{
-                            backgroundColor: theme.theme.textFont === item.fontFamily ?
+                            backgroundColor: AppState.profile.theme.textFont === item.fontFamily ?
                                 '#0060CD' :
                                 "#ffffff"
                         }}
-                        onPressOut={() => themeDispatch(
-                            {
-                                type: 'setFontFamily',
-                                fontFamily: item.fontFamily
-                            })}
+                        onPressOut={() =>{
+                            dispatch(
+                                {
+                                    type: 'setFontFamily',
+                                    fontFamily: item.fontFamily,
+                                })
+                            // themeDispatch(
+                            // {
+                            //     type: 'setFontFamily',
+                            //     value: item.fontFamily,
+                            //     prop:'textFont'
+                            // })
+                        }
+                        }
                         className="w-[140px] h-[44px] justify-center items-center border border-2-[#707070] rounded-full m-1 ">
                         <Text style={{
                             fontFamily: item.fontFamily,
-                            color: theme.theme.textFont === item.fontFamily ?
+                            color: AppState.profile.theme.textFont === item.fontFamily ?
                                 '#ffffff' :
                                 "#707070"
                         }}
@@ -65,18 +76,28 @@ const CustomizeText = ({themeDispatch , theme}) => {
             <Text className="p-5 text-[#8C8C8C]">Text Color</Text>
                 <View className="relative w-full flex flex-row flex-wrap justify-center items-center">
                     {
-                      theme.textColors.map(item => 
+                      AppState.textColors.map(item => 
                         <TouchableOpacity
                         style={{ 
                             backgroundColor: item.color,
                             borderWidth:2,
-                            borderColor:theme.theme.textColor == item.color ? '#0060CD' : '#bfbfbf' 
+                            borderColor:AppState.profile.theme.textColor == item.color ? '#0060CD' : '#bfbfbf' 
                         }}
-                        onPressOut={() => themeDispatch(
-                            {
-                                type: 'setTextColor',
-                                textColor: item.color
-                            })}
+                        onPressOut={() => {
+                            console.log(item.color);
+                            dispatch(
+                                {
+                                    type: 'setTextColor',
+                                    textColor: item.color,
+                                })
+                            
+                            // themeDispatch(
+                            // {
+                            //     type: 'setTextColor',
+                            //     value: item.color,
+                            //     prop:'textColor'
+                            // })
+                        }}
                         className="w-[35px] h-[35px] rounded-full m-2">
                     </TouchableOpacity>                        
                         )  

@@ -10,17 +10,49 @@ import Spinner from '../Spinner'
 
 
 const SelectIcon = ({ onChange, setSelectIcon }) => {
-    const iconsLibFab = Object.keys(library.definitions.fab).map(icon => (['fab' , icon ]))
-    const iconsLibFas = Object.keys(library.definitions.fas).map(icon => (['fas' , icon]))
+    const iconsLibFab = Object.keys(library.definitions.fab).map(icon => (['fab', icon]))
+    const iconsLibFas = Object.keys(library.definitions.fas).map(icon => (['fas', icon]))
     const Icons = iconsLibFab.concat(iconsLibFas)
-    const offset = 10
+    const [offset, setOffset] = useState(10)
     const [search, setSearch] = useState('')
-    const [text , setText] = useState('')
-    const [allIcons, setAllIcons] = useState([])
-    const [page, setPage] = useState(1)
+    const [allIcons, setAllIcons] = useState(Icons)
+    const [showIcons, setShowIcon] = useState([])
     library.add(fab)
     library.add(fas)
+    const findIcons = async () => {
+        setOffset(10)
+        let icons = await Icons.filter(icon => icon[1].toLowerCase().includes(search.toLowerCase()))
+        setAllIcons(icons)
+        const iconss = []
+        for (let i = 0; i < 10; i++) {
+        if(icons[i]){
+            iconss.push(icons[i])
+        }
+        }
+        setShowIcon(iconss)
+    }
 
+const seeMore = () => {
+    const icons = []
+    for (let i = offset; i < offset + 10; i++) {
+        if(allIcons[i]){
+            icons.push(allIcons[i])
+        }
+    }
+    const prevIcons = showIcons
+    setOffset(prev => prev+10)
+    setShowIcon(prevIcons.concat(icons))
+
+}
+
+
+    useEffect(() => {
+        const icons = []
+        for (let i = 0; i < offset; i++) {
+            icons.push(Icons[i])
+        }
+        setShowIcon(icons)
+    }, [])
 
 
     return (
@@ -32,26 +64,24 @@ const SelectIcon = ({ onChange, setSelectIcon }) => {
                 </TouchableOpacity>
             </View>
             <View className='relative w-full flex flex-row justify-between items-center p-5'>
-                <TextInput placeholder='search' value={text} onChangeText={text => setText(text)} className='relative p-2 px-3 w-full text-black border border-1 border-[#bfbfbf] rounded-full' />
-                <TouchableOpacity onPress={() => setSearch(text)} className="absolute right-6 p-3 flex justify-center items-center bg-[#0060CD] rounded-full">
-                    <FontAwesomeIcon icon={['fab' , 'sistrix']} color='white' />
+                <TextInput placeholder='search' value={search} onChangeText={text => setSearch(text)} className='relative p-2 px-3 w-full text-black border border-1 border-[#bfbfbf] rounded-full' />
+                <TouchableOpacity onPress={() => findIcons()} className="absolute right-6 p-3 flex justify-center items-center bg-[#0060CD] rounded-full">
+                    <FontAwesomeIcon icon={['fab', 'sistrix']} color='white' />
                 </TouchableOpacity>
             </View>
             <View className="w-screen h-full ">
 
 
-                    <FlatList
-                    data={[]}
-                    renderItem={item =>
-                        {
-                            console.log(item);
-                            if(item.item){
-                                    return(
+                <FlatList
+                    data={showIcons}
+                    renderItem={item => {
+                        if (item.item) {
+                            return (
                                 <View
                                     className="w-full flex-row p-2 rounded-full border border-1 border-[#bfbfbf] m-1 justify-start items-center">
                                     <FontAwesomeIcon size={50} icon={item.item} />
                                     <View className="w-full">
-        
+
                                         <TouchableOpacity
                                             onPress={() => {
                                                 // onChange()
@@ -61,9 +91,15 @@ const SelectIcon = ({ onChange, setSelectIcon }) => {
                                         </TouchableOpacity>
                                     </View>
                                 </View>
-                                    )
-                            }
+                            )
                         }
+                    }
+                    }
+                    ListFooterComponent={() => allIcons.length!=showIcons.length &&
+                        <TouchableOpacity onPress={seeMore}>
+                            <Text className="w-full text-center pt-5 text-black font-[montserrat] underline font-semibold">see more</Text>
+
+                        </TouchableOpacity>
                     }
                     ListEmptyComponent={() =>
                         <View className="w-full h-full justify-center items-center">
