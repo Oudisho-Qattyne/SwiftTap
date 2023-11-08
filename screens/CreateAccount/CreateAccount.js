@@ -22,6 +22,16 @@ import VerificationBusiness from './Business/VerificationBusiness'
 import ContactsBusiness from './Business/ContactsBusiness'
 import InformationBusiness from './Business/InformationBusiness'
 import CompanyInterests from './Business/CompanyInterests'
+import Location from './Business/Location'
+import Members from './Business/Members'
+import CommunicationChannels from './Business/CommunicationChannels'
+import CommunicationChannelsCostumers from './Business/CommunicationChannelsCostumers'
+import UsedNfc from './Business/UsedNfc'
+import NfcProducts from './Business/NfcProducts'
+import SelectImageBusiness from './Business/SelectImageBusiness'
+import StyleBusiness from './Business/StyleBusiness'
+import TermsBusiness from './Business/TermsBusiness'
+import BakeAccountBusiness from './Business/BakeAccountBusiness'
 
 const CreateAccount = () => {
     const [createNewAccount, setCreateNewAccount] = useState(false)
@@ -102,6 +112,46 @@ const CreateAccount = () => {
                             {
                                 CreateAccountState.index == 7 &&
                                 <CompanyInterests />
+                            }
+                            {
+                                CreateAccountState.index == 8 &&
+                                <Location />
+                            }
+                            {
+                                CreateAccountState.index == 9 &&
+                                <Members/>
+                            }
+                            {
+                                CreateAccountState.index == 10 &&
+                                <CommunicationChannels/>
+                            }
+                            {
+                                CreateAccountState.index == 11 &&
+                                <CommunicationChannelsCostumers/>
+                            }
+                            {
+                                CreateAccountState.index == 12 &&
+                                <UsedNfc/>
+                            }
+                            {
+                                CreateAccountState.index == 13 &&
+                                <NfcProducts/>
+                            }
+                            {
+                                CreateAccountState.index == 14 &&
+                                <SelectImageBusiness/>
+                            }
+                            {
+                                CreateAccountState.index == 15 &&
+                                <StyleBusiness/>
+                            }
+                            {
+                                CreateAccountState.index == 16 &&
+                                <TermsBusiness/>
+                            }
+                            {
+                                CreateAccountState.index == 17 &&
+                                <BakeAccountBusiness/>
                             }
                         </View>
                     }

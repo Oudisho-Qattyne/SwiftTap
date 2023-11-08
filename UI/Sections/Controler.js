@@ -7,7 +7,7 @@ import RightCurve from './../../assets/SVGS/RightCurve.svg'
 import LeftCurve from './../../assets/SVGS/LeftCurve.svg'
 import API from '../../API/API'
 
-const Controler = ({ setProfile , profile }) => {
+const Controler = ({ setProfile , profile , fetchProfile }) => {
     const {AppState,CreateAccountDispatch , UiEventsDispatch , UiState, UiDispatch } = useContext(AppContext)
 // console.log(AppState.profile.sections[1].fields[0].contents[1].contentValue.slice(1,100));
     const updateProfile =async () => {
@@ -23,7 +23,8 @@ const Controler = ({ setProfile , profile }) => {
             })
             if(res?.status == 200){
                 console.log(res.data);
-               UiDispatch({ function: 'togglePages', page: 'editable' })
+                UiDispatch({ function: 'togglePages', page: 'editable' })
+                await fetchProfile()
 
             }
             else{

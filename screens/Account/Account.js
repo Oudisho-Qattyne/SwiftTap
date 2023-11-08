@@ -92,7 +92,7 @@ const Account = ({ setProfile, chosenTypeId, profile }) => {
                     entering={SlideInDown}
                     exiting={SlideOutDown}
                 >
-                    <Controler setProfile={setProfile} profile={profile} />
+                    <Controler fetchProfile={fetchProfile} setProfile={setProfile} profile={profile} />
                     <View className="w-screen h-full  ">
                         <ScrollView>
                             <UserImage />
@@ -101,19 +101,19 @@ const Account = ({ setProfile, chosenTypeId, profile }) => {
                                     switch (section.sectionType) {
                                         case 'headings':
                                             return (
-                                                <HeadingSection items={section.fields} />
+                                                <HeadingSection items={section.fields} sectionId={section.sectionId} key={section.sectionId} />
                                             )
                                         case 'contact':
                                             return (
-                                                <Contacts items={section.fields} />
+                                                <Contacts items={section.fields} sectionId={section.sectionId} key={section.sectionId} />
                                             )
                                         case 'icons':
                                             return (
-                                                <IconsSection title={section.sectionName} items={section.fields} />
+                                                <IconsSection title={section.sectionName} items={section.fields} sectionId={section.sectionId} key={section.sectionId} />
                                             )
                                         case 'posts':
                                             return (
-                                                <CertificatesSection title={section.sectionName} items={section.fields} />
+                                                <CertificatesSection title={section.sectionName} items={section.fields} sectionId={section.sectionId} key={section.sectionId} />
                                             )
                                         default:
                                             break;

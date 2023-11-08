@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, AppState, TextInput } from 'react-native'
+import { View, Text, TouchableOpacity, Switch, TextInput } from 'react-native'
 import React, { useState } from 'react'
 import Dots from './../../UI/Dots'
 import { ScaleDecorator } from 'react-native-draggable-flatlist'
@@ -14,13 +14,13 @@ const Field = ({ item, drag, isActive }) => {
     const [items, setItems] = useState(item)
 
     const setName = () => {
-        item.setFieldName(item.fieldId , fieldName)
+        item.setFieldName(item.fieldId, fieldName)
         setItems(prev => ({
             ...prev,
             fieldName: fieldName
         }))
     }
-// console.log(item.contents[0].contentValue.slice(0,60));
+    // console.log(item.contents[0].contentValue.slice(0,60));
     const onChange = (contentId, value) => {
         let contents = [...items.contents]
         const contentIndex = contents.findIndex(content => content.contentId == contentId)
@@ -31,28 +31,29 @@ const Field = ({ item, drag, isActive }) => {
 
         setItems(prev => ({
             ...prev,
-            contents: [...contents]
+            contents: [...contents],
+            isUpdated: true
         }))
     }
     const fields = items.contents.map(content => {
         switch (content.contentType) {
             case 'text':
                 return (
-                    <TextField key={content.contentId} id={content.contentId} edit={edit} value={content.contentValue} onChangeText={onChange} setSelectIcon={item.setSelectIcon} />
+                    <TextField key={content.contentId} id={content.contentId} edit={edit} value={content.contentValue} onChangeText={onChange} setSelectIcon={item.setSelectIcon}  />
                 )
             case 'image':
                 return (
-                    <ImageField key={content.contentId} id={content.contentId} edit={edit} value={content.contentValue} changeValue={onChange} setSelectIcon={item.setSelectIcon} />
+                    <ImageField key={content.contentId} id={content.contentId} edit={edit} value={content.contentValue} changeValue={onChange} setSelectIcon={item.setSelectIcon}  />
                 )
             case 'icon':
                 return (
                     // <Text>jkasdkjnasdkj</Text>
-                    <IconField key={content.contentId} id={content.contentId} edit={edit} value={content.contentValue} changeValue={onChange} setSelectIcon={item.setSelectIcon} />
+                    <IconField key={content.contentId} id={content.contentId} edit={edit} value={content.contentValue} changeValue={onChange} setSelectIcon={item.setSelectIcon} setIconId={item.setIconId} fieldId={item.fieldId} />
                 )
-                case 'file':
-                    return(
-                        <FileField key={content.contentId} id={content.contentId} edit={edit} value={content.contentValue} changeValue={onChange} setSelectIcon={item.setSelectIcon} />
-                    )
+            case 'file':
+                return (
+                    <FileField key={content.contentId} id={content.contentId} edit={edit} value={content.contentValue} changeValue={onChange} setSelectIcon={item.setSelectIcon}  />
+                )
 
             default:
                 break;
@@ -60,18 +61,29 @@ const Field = ({ item, drag, isActive }) => {
     })
     const saveChanges = () => {
         if (edit) {
-            item.changeValue(items.fieldId, items.contents)
+            item.changeValue(items.fieldId, items)
             setEdit(false)
         }
         else {
             setEdit(true)
         }
     }
+    const toggleIsActive = (value) => {
+        const newItems = { ...items }
+        newItems.isActive = value
+        setItems(newItems)
+    }
     return (
         <ScaleDecorator>
             <View className="relative w-full h-fit py-2 rounded-[10px] flex-row justify-between items-center border border-1 bg-white border-[#bfbfbf] my-2">
                 <TouchableOpacity
-                    onPressIn={drag}
+                    onPressIn={() => {
+                        item.setActivationDistance(0)
+                        drag()
+                    }}
+                    onPressOut={() => {
+                        item.setActivationDistance(100)
+                    }}
                     disabled={isActive}
                     className="relative min-w-[40px] flex justify-center items-center ">
                     <Dots />
@@ -85,11 +97,21 @@ const Field = ({ item, drag, isActive }) => {
                             <View className='relative h-fit '>
                                 {fields}
                             </View>
+                            {
+                                edit &&
+                                <Switch
+                                    trackColor={{ false: '#767577', true: '#81b0ff' }}
+                                    thumbColor={items.isActive ? '#0060CD' : '#f4f3f4'}
+                                    ios_backgroundColor="#3e3e3e"
+                                    onValueChange={value => toggleIsActive(value)}
+                                    value={items.isActive}
+                                />
+                            }
                             <TouchableOpacity onPressOut={() => saveChanges()} className="pr-3">
                                 {edit ?
-                                    <FontAwesomeIcon color='#0060CD' icon={['fas', 'check']} />
+                                    <FontAwesomeIcon color='#0060CD' size={25} icon={['fas', 'check']} />
                                     :
-                                    <FontAwesomeIcon color='#0060CD' icon={['fas', 'pen']} />
+                                    <FontAwesomeIcon color='#0060CD' size={25} icon={['fas', 'pen']} />
                                 }
                             </TouchableOpacity>
                         </>

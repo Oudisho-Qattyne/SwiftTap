@@ -13,11 +13,13 @@ export const StateProvider = ({ children }) => {
             newState
         )
     }
+
+
     const setFontFamily = (state, action) => {
         return (
             {
                 ...state,
-                profile:{
+                profile: {
                     ...state.profile,
                     theme: {
                         ...state.profile.theme,
@@ -27,6 +29,8 @@ export const StateProvider = ({ children }) => {
             }
         )
     }
+
+
     const setTextColor = (state, action) => {
         console.log(action.textColor);
         return (
@@ -42,6 +46,8 @@ export const StateProvider = ({ children }) => {
             }
         )
     }
+
+
     const setBackGroundStyle = (state, action) => {
         switch (action.prop) {
             case 'type':
@@ -219,11 +225,13 @@ export const StateProvider = ({ children }) => {
                 break;
         }
     }
+
+
     const setIconStyle = (state, action) => {
-        const newState = {...state}
+        const newState = { ...state }
         newState.profile.theme.icons[action.prop] = action.value
 
-        return(newState)
+        return (newState)
         // switch (action.prop) {
         //     case 'color':
         //         return (
@@ -293,11 +301,13 @@ export const StateProvider = ({ children }) => {
         //         break;
         // }
     }
+
+
     const setButtonsStyle = (state, action) => {
-        const newState = {...state}
+        const newState = { ...state }
         newState.profile.theme.buttons[action.prop] = action.value
-        
-        return(newState)
+
+        return (newState)
         // switch (action.prop) {
         //     case 'type':
         //         return (
@@ -367,6 +377,8 @@ export const StateProvider = ({ children }) => {
         //         break;
         // }
     }
+
+
     const setLogedIn = (state, action) => {
         return (
             {
@@ -376,15 +388,16 @@ export const StateProvider = ({ children }) => {
         )
     }
 
+
     const setInformation = (state, action) => {
         const newState = { ...state }
         const sectionIndex = newState.profile.sections.findIndex(section => section.sectionName == action.sectionName)
         newState.profile.sections[sectionIndex] = {
-            ...newState.profile.sections[sectionIndex],
-            fields: action.fields
+            ...action.section
         }
         return (newState)
     }
+
 
     const setProfileImage = (state, action) => {
         const newState = { ...state }
@@ -395,6 +408,25 @@ export const StateProvider = ({ children }) => {
         }
         return (newState)
     }
+
+
+    const deleteItem = (state, action) => {
+        const newState = { ...state }
+        const sectionIndex = newState.profile.sections.findIndex(section => section.sectionId == action.sectionId)
+        const newFields = []
+        for (let i = 0; i < newState.profile.sections[sectionIndex].fields.length; i++) {
+            if (newState.profile.sections[sectionIndex].fields[i].fieldId != action.fieldId) {
+                newFields.push(newState.profile.sections[sectionIndex].fields[i])
+            }
+        }
+        newState.profile.sections[sectionIndex] = {
+            ...newState.profile.sections[sectionIndex],
+            fields: newFields
+        }
+        return (newState)
+    }
+
+
     const reducer = (state, action) => {
 
         switch (action.type) {
@@ -434,6 +466,10 @@ export const StateProvider = ({ children }) => {
             case 'setProfileImage':
                 return (
                     setProfileImage(state, action)
+                )
+            case 'deleteItem':
+                return (
+                    deleteItem(state, action)
                 )
         }
     }
@@ -780,7 +816,7 @@ export const StateProvider = ({ children }) => {
             case 'togglePages':
 
                 Object.keys(newState.pages).map(page => {
-                    if (page != 'editable' && page!=action.page) {
+                    if (page != 'editable' && page != action.page) {
                         newState.pages[page] = false
                     }
                 })
@@ -851,7 +887,8 @@ export const StateProvider = ({ children }) => {
                     {
                         ...state,
                         welcomPages: state.individualPages,
-                        Individual: true
+                        Individual: true,
+                        role:action.role
                     }
                 )
                 break;
@@ -860,7 +897,8 @@ export const StateProvider = ({ children }) => {
                     {
                         ...state,
                         welcomPages: state.businessPages,
-                        Individual: false
+                        Individual: false,
+                        role:action.role
                     }
                 )
 
@@ -898,7 +936,8 @@ export const StateProvider = ({ children }) => {
     const [CreateAccountState, CreateAccountDispatch] = useReducer(CreateAccountReducer,
         {
             index: 1,
-            Individual: true,
+            Individual: false,
+            role:'',
             welcomPages: [
                 {
                     id: 1,
@@ -1068,7 +1107,7 @@ export const StateProvider = ({ children }) => {
         {
             loading: false,
             error: false,
-            logedIn: false ,
+            logedIn: false,
         }
     )
 
@@ -1197,13 +1236,177 @@ export const StateProvider = ({ children }) => {
                     "is_default": 1,
                     "created_at": "2023-10-17T10:28:24.000000Z",
                     "updated_at": "2023-10-17T10:28:24.000000Z",
-                    "deleted_at": null
+                    "deleted_at": null,
+                    error:null
                 },
             },
             terms: {
-                terms: false,
-                error: null
-            }
+                terms: {
+                    value: false,
+                    error: null
+                }
+            },
+            use_nfc: {
+                use_nfc: {
+                    value: false,
+                    error: null
+                }
+            },
+            interests: {
+                interests: {
+                    value: [],
+                    error: null
+                }
+            },
+            location: {
+                country: {
+                    value: "",
+                    error: null
+                },
+                city: {
+                    value: "",
+                    error: null
+                },
+            },
+            members: {
+                members: {
+                    value: "",
+                    error: null
+                }
+            },
+            work_channels: {
+                work_channels: {
+                    value: [],
+                    error: null
+                }
+            },
+            customer_channels: {
+                customer_channels: {
+                    value: [],
+                    error: null
+                }
+            },
+            nfc_products: {
+                nfc_products: {
+                    value: [],
+                    error: null
+                }
+            },
+            industry: {
+                industry: {
+                    value: '',
+                    error: null
+                }
+            },
+        })
+
+    const [CompanyJourneyInputFields, CompanyJourneyDispatch] = useReducer(journeyReducer,
+        {
+            information1: {
+                name: {
+                    value: '',
+                    validation: 'name',
+                    valid: true,
+                    password: false,
+                    error: 'invalid name'
+                },
+                surname: {
+                    value: '',
+                    validation: 'name',
+                    valid: true,
+                    password: false,
+                    error: 'invalid name'
+                },
+                birthDate: {
+
+                    value: null,
+                    validation: 'name',
+                    valid: true,
+                    password: false,
+                    error: 'invalid input'
+                },
+                gender: {
+                    value: null,
+                    validation: 'name',
+                    valid: true,
+                    password: false,
+                    error: 'invalid input'
+                },
+
+            },
+            information2: {
+                company: {
+                    value: '',
+                    validation: 'name',
+                    valid: true,
+                    password: false,
+                    error: 'invalid company name'
+                },
+                profession: {
+                    value: '',
+                    validation: 'name',
+                    valid: true,
+                    password: false,
+                    error: 'invalid input'
+                },
+                industry: {
+                    value: '',
+                    validation: 'name',
+                    valid: true,
+                    password: false,
+                    error: 'invalid input'
+                },
+            },
+            contacts: {
+                eMail: {
+                    value: '',
+                    validation: 'email-address',
+                    valid: true,
+                    password: false,
+                    error: 'invalid e-mail address'
+                },
+                phone: {
+                    value: '',
+                    validation: 'phone-pad',
+                    valid: true,
+                    password: false,
+                    error: 'invalid input'
+                },
+                whatsApp: {
+                    value: '',
+                    validation: 'phone-pad',
+                    valid: true,
+                    password: false,
+                    error: 'invalid input'
+                },
+                telegram: {
+                    value: '',
+                    validation: 'name',
+                    valid: true,
+                    password: false,
+                    error: 'invalid input'
+                },
+            },
+            image: null,
+            style: {
+                theme: {
+                    "id": 1,
+                    "customizeable": 1,
+                    "textColor": "#e0c99a",
+                    "textFont": "#dccba0",
+                    "profielBorderColor": "#1301fd",
+                    "backGround": "[\"#4fae6d\"]",
+                    "buttons": "[\"#4b7aa2\"]",
+                    "icons": "[\"#f71e85\"]",
+                    "is_approved": 1,
+                    "is_default": 1,
+                    "created_at": "2023-10-17T10:28:24.000000Z",
+                    "updated_at": "2023-10-17T10:28:24.000000Z",
+                    "deleted_at": null
+                },
+            },
+
+
         })
     return (
         <AppContext.Provider value={{ AppState: AppState, dispatch: dispatch, CreateAccountState: CreateAccountState, CreateAccountDispatch: CreateAccountDispatch, UiState: UiState, UiDispatch: UiDispatch, UiEvents: UiEvents, UiEventsDispatch: UiEventsDispatch, journeyInputFields: journeyInputFields, journeyDispatch: journeyDispatch }}>

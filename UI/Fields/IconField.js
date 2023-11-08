@@ -5,7 +5,7 @@ import ImageField from './ImageField';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import * as ImagePicker from 'expo-image-picker';
 
-const IconField = ({ id, edit, value, changeValue, setSelectIcon }) => {
+const IconField = ({ id, edit, value, changeValue, setSelectIcon , setIconId , fieldId}) => {
     const [iconType, setIconType] = useState('icon')
     const [open, setOpen] = useState(false)
     const [iconTypes, setIconTypes] = useState(
@@ -84,7 +84,9 @@ const IconField = ({ id, edit, value, changeValue, setSelectIcon }) => {
                 <View className="relative flex justify-center items-center rounded-full m-3">
                     {
                         edit &&
-                        <TouchableOpacity onPress={() => setSelectIcon(true)} className="absolute w-20 h-20 rounded-full flex justify-center items-center z-30">
+                        <TouchableOpacity onPress={() => {
+                            setIconId({contentId : id , fieldId:fieldId})
+                            setSelectIcon(true)}} className="absolute w-20 h-20 rounded-full flex justify-center items-center z-30">
                             <View className="absolute w-20 h-20 rounded-full  flex justify-center items-center  bg-black opacity-25" />
                             <FontAwesomeIcon color='white' icon={['fas', 'pen']} />
                         </TouchableOpacity>

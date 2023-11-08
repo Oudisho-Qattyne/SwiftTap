@@ -11,6 +11,8 @@ import {
   View,
 } from 'react-native';
 import { useFonts } from 'expo-font';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { SplashScreen } from 'expo-router';
 
 
 
@@ -40,7 +42,7 @@ function App() {
   return (
 
     <StateProvider>
-      <StatusBar/>
+     <SafeAreaView style={{backgroundColor:'black'}}>
       <View className="w-screen h-full flex justify-center items-center" onLayout={onLayoutRootView}>
         {/* <NavigationContainer> */}
         <Layout />
@@ -49,7 +51,7 @@ function App() {
       </View> */}
         {/* </NavigationContainer> */}
       </View>
-
+      </SafeAreaView>
     </StateProvider>
 
   );

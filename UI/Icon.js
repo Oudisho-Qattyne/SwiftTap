@@ -55,14 +55,14 @@ const Icon = ({ item }) => {
     }
     return (
         <View className=" relative flex w-[100px] h-[100px] justify-between items-center py-2 z-10 ">
-            {/* {
+            {
                 UiState.pages.editable &&
                 <Animated.View className='absolute top-5 right-5 z-20' entering={BounceIn} >
-                    <TouchableOpacity style={{ zIndex: 20 }} onPressOut={() => dispatch({ type: 'deleteIcon', id: item.id, section: item.section })} className='min-w-[22px] min-h-[22px] rounded-full flex justify-center items-center bg-[#FF4656] '>
+                    <TouchableOpacity style={{ zIndex: 20 }} onPressOut={() => dispatch({ type: 'deleteItem', fieldId: item.fieldId, sectionId: item.sectionId })} className='min-w-[22px] min-h-[22px] rounded-full flex justify-center items-center bg-[#FF4656] '>
                         <FontAwesomeIcon color='#ffffff' size={10} icon={['fas', 'minus']} />
                     </TouchableOpacity>
                 </Animated.View>
-            } */}
+            }
             <TouchableOpacity style={iconStyle} disabled={UiState.pages.editable} className="w-[50px] h-[50px] flex justify-center items-center z-10 overflow-hidden">
                 {finalIcon}
             </TouchableOpacity>

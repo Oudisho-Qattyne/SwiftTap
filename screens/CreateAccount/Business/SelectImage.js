@@ -8,19 +8,16 @@ import Animated, { SlideInDown, SlideOutDown } from 'react-native-reanimated'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import * as ImagePicker from 'expo-image-picker';
 
-const SelectImageBusiness = () => {
+const SelectImage = () => {
     const { CreateAccountState, CreateAccountDispatch , journeyInputFields , journeyDispatch } = useContext(AppContext)
     const [image, setImage] = useState(journeyInputFields.image)
-    const [error , setError] = useState(null)
     const startJourney = () => {
-        if(image){
-            next()
-            CreateAccountDispatch({ type: 'nextPage' })
-        }
-        else{
-            setError('select image')
-        }
+        CreateAccountDispatch({ type: 'nextPage' })
+        // if(image){
+            // next()
+        // }
     }
+console.log(journeyInputFields.image);
 
     const pickImage = async () => {
         // No permissions request is necessary for launching the image library
@@ -33,7 +30,6 @@ const SelectImageBusiness = () => {
 
         if (!result.canceled) {
             setImage(result);
-            setError(null)
         }
     };
 
@@ -74,17 +70,11 @@ const SelectImageBusiness = () => {
             <TouchableOpacity onPress={pickImage}>
                 {image ?
                     <Image source={{ uri: image.assets[0].uri }} className="w-[164px] h-[164px] rounded-full" /> :
-                    <View  className="w-[164px] h-[164px] rounded-full border-dashed border-2 border-[#bfbfbf] justify-center items-center" style={{ borderColor: error ? 'red' : '#bfbfbf' }}>
-                        <FontAwesomeIcon color={error ? 'red' : '#bfbfbf'} size={30} icon={['fas' , 'plus']}/>
+                    <View style={{ borderStyle: 'dashed' }} className="w-[164px] h-[164px] rounded-full border-dashed border-2 border-[#bfbfbf] justify-center items-center">
+                        <FontAwesomeIcon color='#bfbfbf' size={30} icon={['fas' , 'plus']}/>
                     </View>
                 }
             </TouchableOpacity>
-            {
-                error &&
-                <View>
-                    <Text className="text-left text-red-700">{error}</Text>
-                </View>
-            }
 
             <TouchableOpacity onPress={() => startJourney()} className="absolute bottom-40 w-[296px] h-[48px] rounded-full bg-[#1776F2] justify-center items-center">
                 <Text className="text-white text-xl">next</Text>
@@ -93,4 +83,4 @@ const SelectImageBusiness = () => {
     )
 }
 
-export default SelectImageBusiness
+export default SelectImage

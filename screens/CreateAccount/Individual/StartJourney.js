@@ -10,7 +10,6 @@ import Animated, { SlideOutDown, SlideInDown, ZoomIn, ZoomOut, SlideInRight, Sli
 import axios from 'axios'
 import swifttapAxios from '../../../axios/SwftTapAxios'
 import * as SecureStore from 'expo-secure-store';
-import useRefreshToken from '../../../Hooks/useRefreshToken'
 
 const StartJourney = () => {
     const { CreateAccountState, CreateAccountDispatch, UiEventsDispatch } = useContext(AppContext)
@@ -244,7 +243,7 @@ const StartJourney = () => {
                         'password': personInfo.regestir.password.value,
                         'password_confirmation': personInfo.regestir.confirmPassword.value,
                         'name': personInfo.information.userName.value,
-                        'role': 'person',
+                        'role': CreateAccountState.role,
                     }
                 })
                 UiEventsDispatch({ event: 'loading', value: false })

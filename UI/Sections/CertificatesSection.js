@@ -6,7 +6,7 @@ import AddIcon from '../AddIcon.js'
 import { AppContext } from '../../AppState'
 import Post from '../Items/Post'
 
-const CertificatesSection = ({ title, items }) => {
+const CertificatesSection = ({ title, items , sectionId}) => {
     const { UiState, UiDispatch, AppState } = useContext(AppContext)
     return (
         <View className="relative w-full flex justify-center items-center py-20">
@@ -26,7 +26,7 @@ const CertificatesSection = ({ title, items }) => {
                             ...item,
                             item: {
                                 ...item.item,
-                                section: title
+                                sectionId: sectionId
                             }
                         }
                         return (

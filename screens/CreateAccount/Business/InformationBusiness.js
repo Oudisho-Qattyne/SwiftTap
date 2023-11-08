@@ -1,26 +1,74 @@
 import { View, Text, TouchableOpacity, Image } from 'react-native'
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { AppContext } from '../../../AppState'
 import DropDownPicker from 'react-native-dropdown-picker'
 import Smile from './../../../assets/SVGS/Smile.svg'
 import Works from './../../../assets/SVGS/Works.svg'
 import TwoWifiRed from './../../../assets/SVGS/TwoWifiRed.svg'
 import Animated, { SlideInDown, SlideOutDown, ZoomIn, ZoomOut } from 'react-native-reanimated'
+import API from '../../../API/API'
 
 
 const InformationBusiness = () => {
-    const { CreateAccountState, CreateAccountDispatch } = useContext(AppContext)
+    const { CreateAccountState, CreateAccountDispatch, UiEventsDispatch, journeyInputFields, journeyDispatch } = useContext(AppContext)
     const [openDropDownIndustry, setOpenDropDownIndustry] = useState(false)
     const [info, setInfo] = useState({
-        industry: null
-    })
+        industry:{
+            ...journeyInputFields['industry']
+        }
+    }
+    )
     const [industry, setIndustry] = useState([
         { label: 'a', value: 'a' },
         { label: 'b', value: 'b' },
     ])
 
+    const fetchIndustries = async () => {
+        const industries = []
+        const { res, err } = await API({
+            type: 'industries',
+            payload: {
+                UiEventsDispatch: UiEventsDispatch,
+                CreateAccountDispatch: CreateAccountDispatch
+            }
+        })
+        if (res) {
+            for (let i = 0; i < res.length; i++) {
+                let industry = {
+                    label: res[i].name,
+                    value: res[i].id
+                }
+                industries.push(industry)
+            }
+            setIndustry(industries)
+        }
+        if (err) {
+            console.log(err);
+        }
+    }
+
+    useEffect(() => {
+        fetchIndustries()
+    }, [])
+
+
+
     const information = () => {
-        CreateAccountDispatch({ type: 'nextPage' })
+        if (info.industry.industry.value != '') {
+            journeyDispatch({ function: 'setSection', section: info })
+            CreateAccountDispatch({ type: 'nextPage' })
+        }
+        else {
+            setInfo(prev => ({
+                ...prev,
+                industry:{
+                    industry:{
+                        ...prev.industry.industry,
+                        error:'select industry'
+                    }
+                }
+            }))
+        }
     }
     return (
 
@@ -39,7 +87,7 @@ const InformationBusiness = () => {
                     <Animated.View entering={ZoomIn.delay(900)} exiting={ZoomOut} className="absolute justify-center items-center top-[90%] -right-16 bg-black rounded-full px-5 py-2">
                         <View className="flex-row justify-center items-center " >
                             <Text className="text-[#B9FF00] font-black font-[montserrat] ">Hello ! </Text>
-                            <Smile/>   
+                            <Smile />
                         </View>
                     </Animated.View>
                 </View>
@@ -50,23 +98,38 @@ const InformationBusiness = () => {
             <Text className="w-full text-[#1E1E1E] font-[montserrat] font-black text-center text-[18px] pb-6">Information</Text>
             <View className="w-[290px]">
                 <DropDownPicker
-                    style={{ borderColor: '#bfbfbf' }}
+                    style={{borderColor:info.industry.industry.error? 'red' : '#bfbfbf'}}
                     placeholder='Industry'
                     placeholderStyle={{ color: '#bfbfbf' }}
                     open={openDropDownIndustry}
                     max={10}
-                    value={info.industry}
+                    value={info.industry.industry.value}
                     items={industry}
                     setOpen={setOpenDropDownIndustry}
                     onSelectItem={(industry) => {
                         setInfo(
                             prev => ({
                                 ...prev,
-                                industry: industry.value
+                                industry:{
+                                    ...prev.industry,
+                                    industry:{
+                                        ...prev.industry.industry,
+                                        value:industry.value,
+                                        error:null
+                                    }
+                                } 
+                                
                             })
                         )
                     }}
                 />
+            {
+                info.industry.industry.error &&
+                <View>
+                    <Text className="text-left text-red-700">{info.industry.industry.error}</Text>
+                </View>
+
+            }
             </View>
 
             <TouchableOpacity onPress={() => information()} className="absolute bottom-40 w-[296px] h-[48px] rounded-full bg-[#1776F2] justify-center items-center">

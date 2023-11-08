@@ -5,11 +5,9 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { faArrowLeft, fas } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { FlashList } from '@shopify/flash-list'
-import Spinner from '../Spinner'
 
 
-const SelectIcon = ({ onChange, setSelectIcon }) => {
+const SelectIcon = ({ onChange, setSelectIcon , setIcon }) => {
     const iconsLibFab = Object.keys(library.definitions.fab).map(icon => (['fab', icon]))
     const iconsLibFas = Object.keys(library.definitions.fas).map(icon => (['fas', icon]))
     const Icons = iconsLibFab.concat(iconsLibFas)
@@ -21,7 +19,7 @@ const SelectIcon = ({ onChange, setSelectIcon }) => {
     library.add(fas)
     const findIcons = async () => {
         setOffset(10)
-        let icons = await Icons.filter(icon => icon[1].toLowerCase().includes(search.toLowerCase()))
+        let icons = await Icons.filter(icon => icon[1].toLowerCase().includes(search.trim().toLowerCase()))
         setAllIcons(icons)
         const iconss = []
         for (let i = 0; i < 10; i++) {
@@ -84,7 +82,8 @@ const seeMore = () => {
 
                                         <TouchableOpacity
                                             onPress={() => {
-                                                // onChange()
+                                                setIcon(item.item)
+                                                setSelectIcon(false)
                                             }}
                                         >
                                             <Text className="text-black font-black px-10">{item.item[1]}</Text>

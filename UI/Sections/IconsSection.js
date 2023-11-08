@@ -5,7 +5,7 @@ import Icon from '../Icon.js'
 import AddIcon from '../AddIcon.js'
 import { AppContext } from '../../AppState'
 
-const IconsSection = ({ title , items }) => {
+const IconsSection = ({ title , items , sectionId }) => {
     const { UiState, UiDispatch , AppState } = useContext(AppContext)
 
     return (
@@ -19,20 +19,23 @@ const IconsSection = ({ title , items }) => {
                 contentContainerStyle={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', paddingTop: 20 }}
                 data={items}
                 renderItem={item => {
-
-                    if (item.item.isActive) {
+                    // if (item.item?.isActive) {
                         let items = {
                             ...item,
                             item: {
                                 ...item.item,
-                                section: title
+                                sectionId: sectionId
                             }
                         }
+                        console.log(items);
                         return (
                             <Icon item={items.item} />
                             // <Text className="text-black">hbsdkhb</Text>
                         )
-                    }
+                    // }
+                    // else{
+                        // return
+                    // }
                 }}
                 ListFooterComponent={() => UiState.pages.editable && <AddIcon  section={title} />}
             />

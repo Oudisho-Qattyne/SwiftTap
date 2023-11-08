@@ -11,16 +11,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import SelectIcon from '../Sections/SelectIcon'
 
 const EditIcons = ({ section }) => {
+    const [activationDistance, setActivationDistance] = useState(100);
+    const [iconId , setIconId] = useState(null)
     const { UiState, UiDispatch, AppState, dispatch } = useContext(AppContext)
-    const sectionData = AppState.profile.sections.filter(item => item.sectionName == section)[0]
+    const [sectionData , setSectionData] = useState(
+        {...AppState.profile.sections.filter(item => item.sectionName == section)[0]}
+    )
     const [items, setItems] = useState(sectionData.fields)
     const [selectIcon, setSelectIcon] = useState(false)
     const changeValue = (fieldId, value) => {
         const newItems = [...items]
         const fieldIndex = newItems.findIndex(item => item.fieldId == fieldId)
         newItems[fieldIndex] = {
-            ...newItems[fieldIndex],
-            contents: value
+            ...value
         }
         setItems(newItems)
     }
@@ -55,7 +58,7 @@ const setFieldName = (fieldId , fieldName) => {
                 contentId: content.contentId,
                 contentType: content.contentType,
                 contentValue: '',
-                isActive: true
+                isActive: true,
             }
             return (newContent)
         })
@@ -64,7 +67,8 @@ const setFieldName = (fieldId , fieldName) => {
         const newField = {
             contents: newContents,
             fieldId: newId,
-            fieldName: ''
+            fieldName: '',
+            newField:true
         }
 
         setItems(prev => {
@@ -75,10 +79,34 @@ const setFieldName = (fieldId , fieldName) => {
             )
         })
     }
+    const setIcon = (icon) => {
+        const iconStr = `${icon[0]}|${icon[1]}`
+        const newItems = [...items]
+        const fieldIndex = newItems.findIndex(item => item.fieldId==iconId.fieldId)
+        const contents = newItems[fieldIndex].contents.map(content => {
+            let newContent
+           if(content.contentId == iconId.contentId){
+            newContent = {
+                ...content,
+                contentValue : iconStr
+            }
+            return(newContent)
+        } 
+        else{
 
+            return(content)
+        }
+        }); 
+        newItems[fieldIndex] = {
+            ...newItems[fieldIndex],
+            contents:contents
+        }
+        setItems(newItems)
+        setIconId(null)
+    }
     return (
         <View className='absolute w-screen h-full  z-10 justify-center items-center '>
-            <ScrollView className='relative min-w-full min-h-screen z-20 '>
+            <ScrollView scrollEnabled={activationDistance !== 0} className='relative min-w-full min-h-screen z-20 '>
                 <View className="min-w-full min-h-full">
                     <Pressable onPress={() => UiDispatch({ function: 'toggle', section: section })}>
                         <View className="relative min-w-full min-h-[500px] " />
@@ -94,9 +122,17 @@ const setFieldName = (fieldId , fieldName) => {
                             <Animated.View entering={SlideInLeft} exiting={SlideOutLeft} className="flex flex-col justify-center items-center">
 
                                 <DraggableFlatList
+                                    activationDistance={activationDistance}
                                     containerStyle={{ width: '100%' }}
                                     contentContainerStyle={{ padding: 20 }}
-                                    onDragEnd={data => setItems(data.data)}
+                                    onDragBegin={() => setActivationDistance(0)}
+                                    onDragEnd={data => {
+                                        setSectionData(prev => ({
+                                            ...prev,
+                                            newOrder:true
+                                        }))
+                                        setItems(data.data)
+                                    }}
                                     data={items}
                                     renderItem={(item) => {
                                         let items = {
@@ -105,7 +141,9 @@ const setFieldName = (fieldId , fieldName) => {
                                                 ...item.item,
                                                 changeValue: changeValue,
                                                 setSelectIcon: setSelectIcon,
-                                                setFieldName:setFieldName
+                                                setFieldName:setFieldName,
+                                                setActivationDistance:setActivationDistance,
+                                                setIconId:setIconId
                                             }
                                         }
                                         return (
@@ -132,7 +170,10 @@ const setFieldName = (fieldId , fieldName) => {
                                     <Text className='relative text-center text-[13px] text-[#707070]'>Cancel</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity onPressOut={() => {
-                                    dispatch({ type: 'setInformation', sectionName: section, fields: items })
+                                    dispatch({ type: 'setInformation', sectionName: section, section:{
+                                        ...sectionData,
+                                        fields:items
+                                    }  })
                                     UiDispatch({ function: 'toggle', section: section })
                                 }} className="relative w-[150px] h-[46px] border border-1 border-[#bfbfbf] bg-[#0060CD] rounded-full flex justify-center items-center mx-2">
                                     <Text className='relative text-center text-[13px] text-white'>Save</Text>
@@ -141,7 +182,7 @@ const setFieldName = (fieldId , fieldName) => {
                         }
                         {
                             selectIcon &&
-                            <SelectIcon setSelectIcon={setSelectIcon} />
+                            <SelectIcon setIcon={setIcon} setSelectIcon={setSelectIcon} />
                         }
                     </Animated.View>
                 </View>

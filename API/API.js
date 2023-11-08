@@ -3,6 +3,7 @@ import swifttapAxios from "../axios/SwftTapAxios";
 import * as SecureStore from 'expo-secure-store';
 import { AppContext } from "../AppState";
 import Loading from "../UI/Loading";
+import QueryString from "qs";
 
 
 
@@ -161,14 +162,14 @@ const API = async ({ type, payload }) => {
 
   const updateProfile = async () => {
     console.log('updateProfile');
-    console.log(payload.profile , payload.body);
+    console.log(payload.profile, payload.body.sections[1].fields[0].contents[0]);
     let res = {}
     let err = {}
     const access_token = await SecureStore.getItemAsync('accessToken')
     try {
       const response = await swifttapAxios.put(`/profiles/${payload.profile}`, payload.body, {
         headers: {
-          Authorization : `Bearer ${access_token}`
+          Authorization: `Bearer ${access_token}`
         }
       })
       res = response
@@ -176,7 +177,7 @@ const API = async ({ type, payload }) => {
       err = error
     }
     payload.UiEventsDispatch({ event: 'loading', value: false })
-    return({res,err})
+    return ({ res, err })
 
   }
 
@@ -284,6 +285,154 @@ const API = async ({ type, payload }) => {
     return ({ res, err })
   }
 
+
+  const interests = async () => {
+    console.log('interests');
+    let res = {}
+    let err = {}
+    const access_token = await SecureStore.getItemAsync('accessToken')
+    try {
+      const response = await swifttapAxios({
+        method: 'GET',
+        url: `/interests`,
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': `Bearer ${access_token}`,
+        },
+      })
+      res = response
+    } catch (error) {
+      err = error
+    }
+    payload.UiEventsDispatch({ event: 'loading', value: false })
+    return ({ res, err })
+
+  }
+
+
+  const communicationChannels = async () => {
+    console.log('communication-channels');
+    let res = {}
+    let err = {}
+    const access_token = await SecureStore.getItemAsync('accessToken')
+    try {
+      const response = await swifttapAxios({
+        method: 'GET',
+        url: `/communication-channels`,
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': `Bearer ${access_token}`,
+        },
+      })
+      res = response
+      console.log(response.data);
+    } catch (error) {
+      err = error
+    }
+    payload.UiEventsDispatch({ event: 'loading', value: false })
+    return ({ res, err })
+
+  }
+
+
+  const countries = async () => {
+    console.log('countries');
+    let res = {}
+    let err = {}
+    const access_token = await SecureStore.getItemAsync('accessToken')
+    try {
+      const response = await swifttapAxios({
+        method: 'GET',
+        url: `/countries`,
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': `Bearer ${access_token}`,
+        },
+      })
+      res = response.data.data
+    } catch (error) {
+      err = error
+    }
+    payload.UiEventsDispatch({ event: 'loading', value: false })
+    return ({ res, err })
+
+  }
+
+
+  const nfcProducts = async () => {
+    console.log('nfc-products');
+    let res = {}
+    let err = {}
+    const access_token = await SecureStore.getItemAsync('accessToken')
+    try {
+      const response = await swifttapAxios({
+        method: 'GET',
+        url: `/nfc-products`,
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': `Bearer ${access_token}`,
+        },
+      })
+      res = response
+    } catch (error) {
+      err = error
+    }
+    payload.UiEventsDispatch({ event: 'loading', value: false })
+    return ({ res, err })
+
+  }
+
+
+  const sendCompanyInformations = async () => {
+    console.log('company-informations');
+    let res = {}
+    let err = {}
+    const access_token = await SecureStore.getItemAsync('accessToken')
+    let localUri = payload.image.assets[0].uri;
+    let filename = localUri.split('/').pop();
+    let match = /\.(\w+)$/.exec(filename);
+    let type = match ? `image/${match[1]}` : `image`;
+    let formData = new FormData()
+    formData.append('image', { uri: localUri, name: filename, type });
+    console.log(payload);
+    try {
+      const response = await swifttapAxios.post('/informations', formData, {
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': `Bearer ${access_token}`,
+          'Content-Type': 'multipart/form-data'
+        },
+        params: {
+          email: payload.email,
+          phone: payload.phone,
+          whatsapp: payload.whatsapp,
+          telegram: payload.telegram,
+          theme: payload.theme,
+          terms: payload.terms,
+          industry_id: payload.industry_id,
+          use_nfc: payload.use_nfc,
+          country_id: payload.country_id,
+          city_id: payload.city_id,
+          members: payload.members,
+          interests: payload.interests,
+          work_channels: payload.work_channels,
+          customer_channels: payload.customer_channels,
+          nfc_products: payload.nfc_products
+        },
+        // paramsSerializer: params => {
+        //   console.log(QueryString.stringify(params));
+        //   return QueryString.stringify(params)
+        // }
+      })
+      res = response
+    } catch (error) {
+      err = error
+    }
+    payload.UiEventsDispatch({ event: 'loading', value: false })
+    return ({ res, err })
+  }
+
+
   payload.UiEventsDispatch({ event: 'loading', value: true })
 
 
@@ -327,10 +476,30 @@ const API = async ({ type, payload }) => {
         return (
           await profile()
         )
-        case 'updateProfile':
-          return(
-            await updateProfile()
-            )
+      case 'updateProfile':
+        return (
+          await updateProfile()
+        )
+      case 'interests':
+        return (
+          await interests()
+        )
+      case 'communicationChannels':
+        return (
+          await communicationChannels()
+        )
+      case 'countries':
+        return (
+          await countries()
+        )
+      case 'nfcProducts':
+        return (
+          await nfcProducts()
+        )
+      case 'sendCompanyInformations':
+        return (
+          await sendCompanyInformations()
+        )
       default:
         break;
     }
